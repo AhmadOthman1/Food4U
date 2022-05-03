@@ -16,10 +16,10 @@
 }
 /*nav bar color*/
 .navbarStyle{
-    background-image: linear-gradient(rgba(0,0,0,1), rgba(255,0,0,0));
-}
-.navbarScrolled{
     background-color: black;
+}
+.navbar-center li{
+    padding-left: 10px;
 }
 .navbar-nav li a {
     color: white;
@@ -33,6 +33,46 @@
     font-style: italic;
     font-size: 20px;
     font-family: RalewayBold;
+}
+.SearchTextField{
+    border: white solid 2px;
+    border-radius: 50px;
+    background-color: transparent;
+    width: 300px;
+    height: 40px;
+    color: white;
+    padding: 5px;
+}
+.SearchTextField:focus{
+    border: #26e07f solid 2px;
+    outline: none;
+}
+.SearchButton{
+    margin-left: -40px;
+    margin-top: 5px;
+    border: none;
+    background-color: transparent;
+    width: 30px;
+    height: 30px;
+    background-image: url("../icons/searchW.png");
+    background-position: center;
+    background-size: 25px 25px;
+    padding: 5px;
+    background-repeat: no-repeat;
+    position: absolute;
+}
+.SearchButton:hover{
+    background-image: url("../icons/search.png");
+}
+.navImage{
+    width: 40px;
+    height: 40px;
+    border: #26e07f solid 2px;
+    cursor: pointer;
+    border-radius: 50px;
+}
+.navbar-right{
+    margin-right: 50px;
 }
 /*----------------------------------------BACKGROUNDS-------------------------------------*/
 *{
