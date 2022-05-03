@@ -21,7 +21,7 @@
         <div class="col-md-12 ">
             <div class="top_link"><a href="Index.php"><img src="icons/left.svg" alt=""></a></div>
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
-                <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#user" role="tab" aria-controls="home" aria-selected="true">Regular User</a></li>
+                <li class="nav-item"><a class="nav-link active" id="home-tab" data-toggle="tab" href="#user" role="tab" aria-controls="home" aria-selected="true">User</a></li>
                 <li class="nav-item"><a class="nav-link" id="profile-tab" data-toggle="tab" href="#Resteurent" role="tab" aria-controls="profile" aria-selected="false">Restaurant</a></li>
             </ul>
             <div class="tab-content" id="myTabContent">
