@@ -71,12 +71,12 @@
 <div class=" aboutUsContent container"  >
     <div class="row">
         <div class="col-sm-6">
-            <h1 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="50">Many delicious meals are waiting for you!</h1>
-            <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="100">Food4U website was established in 2022, the site has many restaurants with different meals from all over Palestine, you can create an account and start browsing the menu of restaurants around you and order the most delicious meals to have it delivered to your door</p>
-            <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="150">Many offers and discounts await you when you order through our website, in addition to many other features such as cash on delivery and bookmark restaurants / meals</p>
+            <h1 data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300">Many delicious meals are waiting for you!</h1>
+            <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="700">Food4U website was established in 2022, the site has many restaurants with different meals from all over Palestine, you can create an account and start browsing the menu of restaurants around you and order the most delicious meals to have it delivered to your door</p>
+            <p data-aos="fade-up" data-aos-duration="1500" data-aos-delay="900">Many offers and discounts await you when you order through our website, in addition to many other features such as cash on delivery and bookmark restaurants / meals</p>
         </div>
         <div class="col-sm-6">
-            <div class="container " data-aos="fade-left" data-aos-duration="1000" data-aos-delay="50">
+            <div class="container " data-aos="fade-left" data-aos-duration="500" data-aos-delay="50">
                 <div class="row g-1" >
                     <div class="col-sm-6">
                         <img src="images/pexels-polina-tankilevitch-4109074.jpg" class="foodImages fImage1" alt="food Image">
@@ -104,8 +104,8 @@
 <div class="customersSection box h-auto d-inline-block  " id="customersSection">
     <div class=" customersContent container">
         <div class="row">
-            <div class="col-lg-4" >
-                <div class="customerReview" data-aos="fade-up-right" data-aos-duration="1000" data-aos-delay="100">
+            <div class="col-lg-6" >
+                <div class="customerReview" data-aos="fade-right" data-aos-duration="500" data-aos-delay="100" data-aos-easing="ease-in-out">
                     <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
                     <div>
                         <img src="images/person1.jpg" alt="Person">
@@ -114,8 +114,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="customerReview" data-aos="fade-up" data-aos-duration="1500" data-aos-delay="150">
+            <div class="col-lg-6">
+                <div class="customerReview" data-aos="fade-left" data-aos-duration="500" data-aos-delay="100" data-aos-easing="ease-in-out">
                         <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
                         <div>
                             <img src="images/person2.jpg" alt="Person">
@@ -123,17 +123,28 @@
                         </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="customerReview" data-aos="fade-up-left" data-aos-duration="1000" data-aos-delay="100">
-                        <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
-                        <div>
-                            <img src="images/person3.jpg" alt="Person">
-                            <h5>Ahmad Khudear</h5>
-                        </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="customerReview" data-aos="fade-right" data-aos-duration="500" data-aos-delay="200" data-aos-easing="ease-in-out">
+                    <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
+                    <div>
+                        <img src="images/person3.jpg" alt="Person">
+                        <h5>Ahmad Khudear</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="customerReview" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200" data-aos-easing="ease-in-out">
+                    <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
+                    <div>
+                        <img src="images/person4.jpg" alt="Person">
+                        <h5>Rami Jarrar</h5>
+                    </div>
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 <div class="downloadSection box " id="downloadSection">
@@ -158,7 +169,7 @@
 
             </div>
             <div class="col-md-5">
-                <div class="teamMember" data-aos="fade-right" data-aos-duration="1000" data-aos-delay="200">
+                <div class="teamMember" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                     <img src="images/AhmadOthman.jpg" alt="AhmadOthman">
                     <div class="memSocial">
                         <button href="" class="facebookIcon"></button>
@@ -173,7 +184,7 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="teamMember" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <div class="teamMember" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
                     <img src="images/AhmadOthman.jpg" alt="AhmadOthman">
                     <div class="memSocial">
                         <button href="" class="facebookIcon"></button>
@@ -191,8 +202,8 @@
 
             </div>
         </div>
-        <div class="row ">
-            <div class="col-md-12 pad">
+        <div class="row " >
+            <div class="col-md-12 pad" >
                 <button  onclick="location.href='mailto:hr@food4u.com?subject=JopApplication'" class="grayButton">Join Our Team</button>
             </div>
         </div>
@@ -205,25 +216,25 @@
                 <form action="post">
                     <table>
                         <tr>
-                            <td><label>Contact Us</label></td>
+                            <td data-aos="fade-up" data-aos-duration="500" data-aos-delay="100"><label>Contact Us</label></td>
                         </tr>
                         <tr>
-                            <td><input class="textField" type="text" placeholder="Your Email"><div class="line"></div></td>
+                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><input class="textField" type="text" placeholder="Your Email"><div class="line"></div></td>
                         </tr>
                         <tr>
-                            <td><input class="textField" type="text" placeholder="Subject"><div class="line"></td>
+                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><input class="textField" type="text" placeholder="Subject"><div class="line"></td>
                         </tr>
                         <tr>
-                            <td><textarea class="textArea"  id="" cols="40" rows="10" placeholder="Text"></textarea></td>
+                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><textarea class="textArea"  id="" cols="40" rows="10" placeholder="Text"></textarea></td>
                         </tr>
                         <tr>
-                            <td><input class="buttonBorderdToggle" type="submit" value="Send"></td>
+                            <td data-aos="fade-up" data-aos-duration="1500" data-aos-delay="800"><input class="buttonBorderdToggle" type="submit" value="Send"></td>
                         </tr>
                     </table>
                 </form>
             </div>
             <div class="col-md-6 ">
-                <div class="mapouter blackShadow"><div class="gmap_canvas"><iframe src="https://maps.google.com/maps?q=an%20najah%20&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" id="gmap_canvas" frameborder="0" scrolling="no" style="width: 100%; height: 600px;"></iframe><a href="https://fnftest.net" style="display:none">FNF Character Test</a><style>.mapouter{position:relative;text-align:right;height:600px;width:100%;}</style><a href="https://www.googlemapsiframegenerator.com" style="display:none">Google Maps Iframe Generator - Free Html Embed Code</a><style>.gmap_canvas{overflow:hidden;background:none!important;height:600px;width:100%;}</style></div></div>
+                <div data-aos="fade-left" data-aos-duration="500" data-aos-delay="50" class="mapouter blackShadow"><div class="gmap_canvas"><iframe src="https://maps.google.com/maps?q=an%20najah%20&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" id="gmap_canvas" frameborder="0" scrolling="no" style="width: 100%; height: 600px;"></iframe><a href="https://fnftest.net" style="display:none">FNF Character Test</a><style>.mapouter{position:relative;text-align:right;height:600px;width:100%;}</style><a href="https://www.googlemapsiframegenerator.com" style="display:none">Google Maps Iframe Generator - Free Html Embed Code</a><style>.gmap_canvas{overflow:hidden;background:none!important;height:600px;width:100%;}</style></div></div>
             </div>
         </div>
     </div>

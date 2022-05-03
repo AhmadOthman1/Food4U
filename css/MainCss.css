@@ -155,24 +155,25 @@
     margin: 80px;
 }
 .customerReview{
+    border-radius: 30px;
     background-color: white;
-    height: 500px;
-    margin: 5px;
+    height: auto;
+    margin: 20px;
     box-shadow: 0 0 20px black;
     padding:30px 10px 30px 10px;
 }
 .customerReview p{
     color: #757575;
-    font-size: 20px;
-    height: 300px;
+    font-size: 15px;
+    height: auto;
 }
 .customerReview p span{
     color: #26e07f;
-    font-size: 40px;
+    font-size: 20px;
 }
 .customerReview div{
     height:100px ;
-    margin-bottom: 20px;
+    margin-bottom: -10px;
 }
 .customerReview div img{
     margin-top: 20px;
@@ -361,7 +362,7 @@
     padding-left: 10px;
     border-bottom: 2px solid darkgrey;
     display: block;
-    background-color: #D1D1D1;
+    background-color: #F2F2F2;
 }
 .textField:focus{
     outline: none;
@@ -384,7 +385,7 @@
 .textArea{
     width: 100%;
     resize: none;
-    background-color: #D1D1D1;
+    background-color: #F2F2F2;
 }
 .textArea:focus{
     outline: none;
