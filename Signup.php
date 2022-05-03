@@ -37,9 +37,20 @@
                                 <input type="text"  placeholder="Email *" value="" />
                                 <div class="line"></div>
                             </div>
-                            <div class="form-group"style="margin: 0;">
-                                <input type="text" placeholder="city *" value="" />
-                                <div class="line"></div>
+                            <div class="form-group"style="margin: 0; height: 60px;">
+                                <select class="selectInput" >
+                                    <option selected value="Jenin">Jenin</option>
+                                    <option value="Nablus">Nablus</option>
+                                    <option value="Tubas">Tubas</option>
+                                    <option value="Tulkarm">Tulkarm</option>
+                                    <option value="Qalqilya">Qalqilya</option>
+                                    <option value="Salfit">Salfit</option>
+                                    <option value="Ramallah">Ramallah</option>
+                                    <option value="Jericho">Jericho</option>
+                                    <option value="Jerusalem">Jerusalem</option>
+                                    <option value="Bethlehem">Bethlehem</option>
+                                    <option value="Hebron">Hebron</option>
+                                </select>
                             </div>
                             <div class="form-group"style="margin: 0;">
                                 <input type="text"  minlength="10" maxlength="10" name="txtEmpPhone" placeholder="phone *" value="" />
@@ -89,9 +100,20 @@
                                 <input type="text"  placeholder="Email *" value="" />
                                 <div class="line"></div>
                             </div>
-                            <div class="form-group"style="margin: 0;">
-                                <input type="email"  placeholder="City *" value="" />
-                                <div class="line"></div>
+                            <div class="form-group"style="margin: 0; height: 60px;">
+                                <select class="selectInput" >
+                                    <option selected value="Jenin">Jenin</option>
+                                    <option value="Nablus">Nablus</option>
+                                    <option value="Tubas">Tubas</option>
+                                    <option value="Tulkarm">Tulkarm</option>
+                                    <option value="Qalqilya">Qalqilya</option>
+                                    <option value="Salfit">Salfit</option>
+                                    <option value="Ramallah">Ramallah</option>
+                                    <option value="Jericho">Jericho</option>
+                                    <option value="Jerusalem">Jerusalem</option>
+                                    <option value="Bethlehem">Bethlehem</option>
+                                    <option value="Hebron">Hebron</option>
+                                </select>
                             </div>
                             <div class="form-group"style="margin: 0;">
                                 <input type="text" maxlength="10" minlength="10"  placeholder="Phone *" value="" />
