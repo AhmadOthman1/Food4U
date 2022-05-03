@@ -34,15 +34,15 @@
                                 <div class="line"></div>
                             </div>
                             <div class="form-group" style="margin: 0;">
-                                <input type="text"  placeholder="Last Name *" value="" />
+                                <input type="text"  placeholder="Email *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="password" placeholder="Password *" value="" />
+                                <input type="text" placeholder="city *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="password"  placeholder="Confirm Password *" value="" />
+                                <input type="text"  minlength="10" maxlength="10" name="txtEmpPhone" placeholder="phone *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
@@ -58,20 +58,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group"style="margin: 0;">
-                                <input type="email" placeholder="Your Email *" value="" />
+                                <input type="email" placeholder="Last Name *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="text" minlength="10" maxlength="10" name="txtEmpPhone"  placeholder="Your Phone *" value="" />
+                                <input type="password"    placeholder="Password *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="text" placeholder="Enter Your Answer *" value="" />
+                                <input type="text" placeholder="Address *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="text" placeholder="Enter Your Answer *" value="" />
-                                <div class="line"></div>
+<!--                                <input type="text" placeholder="Enter Your Answer *" value="" />-->
+<!--                                <div class="line"></div>-->
                             </div>
                         </div>
                         <button  class="buttonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">Register</button>
@@ -82,15 +82,15 @@
                     <div class="row register-form">
                         <div class="col-md-6">
                             <div class="form-group"style="margin: 0;">
-                                <input type="text" placeholder="First Name *" value="" />
+                                <input type="text" placeholder="Name *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="text"  placeholder="Last Name *" value="" />
+                                <input type="text"  placeholder="Email *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="email"  placeholder="Email *" value="" />
+                                <input type="email"  placeholder="City *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
@@ -100,20 +100,20 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group"style="margin: 0;">
-                                <input type="password" placeholder="Password *" value="" />
+                                <input type="text" placeholder="Facebook Link *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="password"  placeholder="Confirm Password *" value="" />
+                                <input type="password"  placeholder="Password *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="text" placeholder="Enter Your Answer *" value="" />
+                                <input type="text" placeholder="Address *" value="" />
                                 <div class="line"></div>
                             </div>
                             <div class="form-group"style="margin: 0;">
-                                <input type="text"  placeholder="`Answer *" value="" />
-                                <div class="line"></div>
+<!--                                <input type="text"  placeholder="`Answer *" value="" />-->
+<!--                                <div class="line"></div>-->
                             </div>
 
                         </div>
