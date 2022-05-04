@@ -184,7 +184,7 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <div class="teamMember" data-aos="fade-up" data-aos-duration="1000" data-aos-delay="200">
+                <div class="teamMember" data-aos="fade-up" data-aos-duration="1300" data-aos-delay="400">
                     <img src="images/AhmadOthman.jpg" alt="AhmadOthman">
                     <div class="memSocial">
                         <button href="" class="facebookIcon"></button>

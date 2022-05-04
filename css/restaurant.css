@@ -74,6 +74,17 @@
 .navbar-right{
     margin-right: 50px;
 }
+.logoutButton{
+    background-image: url("../icons/logoutW.png");
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    width: 40px;
+    height: 40px;
+    background-position: center;
+}
+.logoutButton:hover{
+    background-image: url("../icons/logout.png");
+}
 /*----------------------------------------BACKGROUNDS-------------------------------------*/
 html, body {
     max-width: 100%;
@@ -95,8 +106,8 @@ html, body {
     border:  #26e07f solid 2px;
     box-shadow: 0 0 20px black;
     border-radius: 30px;
-    margin-top: -70px;
-    margin-left: 50px;
+    margin-top: -150px;
+
     position: relative;
     z-index: 3;
 }
@@ -105,11 +116,11 @@ html, body {
     border-right: 1px solid gray;
     padding-left: 50px;
     padding-top: 50px;
+
 }
 .profileContentCol{
     width: 100%;
-    height: 100vh;
-    margin-top: -130px;
+    margin-top: 20px;
     padding-left: 50px;
     padding-top: 50px;
 }
@@ -117,12 +128,12 @@ html, body {
     margin-top: 3%;
     border: none;
     background: transparent;
-    width: 280px;
 }
 .profileTaps .nav-tabs .nav-link{
     height: 50px;
     font-weight: 600;
     color: black;
+    background: transparent;
     border: none;
 }
 .profileTaps .nav-tabs .nav-link:hover {
@@ -130,4 +141,82 @@ html, body {
 }
 .profileTaps .nav-tabs .nav-link.active{
     color: #26E07F;
+    background: transparent;
+}
+.profile-form{
+    padding: 5%;
+    width: 100%;
+    margin-top: 5%;
+    height: max-content;
+}
+.profile-form div table tr td input,.profile-form div table tr td textarea,.selectInput{
+    border: none;
+    margin-bottom:10px;
+    padding: 5px;
+    width: 100%;
+    background: transparent;
+    font-weight: bold;
+    color: #383d41;
+    border-bottom: gray solid 2px;
+    display: block;
+}
+.profile-form div table tr td input,.profile-form div table tr td textarea,.selectInput:focus{
+    outline: none;
+}
+table{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.blackSquaredButton{
+    background-color: transparent;
+    border: black solid 1px;
+    color: black;
+    width: 80px;
+    border-radius: 20px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+.blackSquaredButton:hover{
+    background-color: #26E07F;
+    color: black;
+}
+.blackSquaredButton:active{
+    background-color: #46F298;
+}
+.blackSquaredButtonBorderd{
+    margin: 20px;
+    cursor: pointer;
+    color:  black;
+    border:  black solid 2px;
+    border-radius: 10px;
+    background-color: transparent;
+    width: 50%;
+    height: 50px;
+}
+.blackSquaredButtonBorderd:hover{
+    background-color: #26e07f;
+    color: black;
+}
+.blackSquaredButtonBorderd:active{
+    background-color: #46F298;
+}
+.editProfile-form{
+    padding: 5%;
+    width: 100%;
+    margin-top: 5%;
+    height: max-content;
+}
+.editProfile-form div table tr td input,.editProfile-form div table tr td textarea,.selectInput{
+    border: none;
+    margin-bottom:10px;
+    padding: 5px;
+    width: 100%;
+    background: transparent;
+    font-weight: bold;
+    color: #383d41;
+    border-bottom: #26e07f solid 2px;
+    display: block;
+}
+.editProfile-form div table tr td input,.editProfile-form div table tr td textarea,.selectInput:focus{
+    outline: none;
 }
