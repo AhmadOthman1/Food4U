@@ -13,7 +13,30 @@ if(isset($_SESSION['validmem'])){
 else{
     header('location:Index.php');
 }
-
+$name="";
+$profileImage="";
+$description="";
+$coverImage="";
+$facebookLink="";
+$InstagramLink="";
+$siteLink="";
+try{
+    $conn = new mysqli('localhost','root','','food4u');
+    $qrstr="SELECT `name`, `level`, `profileImage`,`description`, `coverImage`, `facebookLink`, `InstagramLink`, `siteLink` FROM user ,restaurant WHERE user.Email=restaurant.Email and user.Email='".$_SESSION['Email']."'";
+    $res=$conn->query($qrstr);
+    $row=$res->fetch_object();
+    $name=$row->name;
+    $profileImage=$row->profileImage;
+    $description=$row->description;
+    $coverImage=$row->coverImage;
+    $facebookLink=$row->facebookLink;
+    $InstagramLink=$row->InstagramLink;
+    $siteLink=$row->siteLink;
+    $conn->close();
+}
+catch (Exception $ex){
+    echo "<p>".$ex->getTraceAsString()."</p>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +69,7 @@ else{
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
                     <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Orders</a></li>
                     <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Menu</a></li>
-                    <li class="nav-item"><a href="" class="  nav-link "><img class="navImage" src="images/person1.jpg"><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600">Resturant Name</span></a></li>
+                    <li class="nav-item"><a href="" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                 </ul>
 
             </div>
@@ -55,8 +78,30 @@ else{
     </div>
 
 </section>
+<div class="mainPage">
+    <div class="row">
+        <div class="col-md-12">
+            <?php echo '<img class="coverImage" src="data:image/jpeg;base64,'.base64_encode($coverImage).'"/>' ?>
+            <?php echo '<img class="profileImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 p-0">
+            <div class="profileTaps">
+                <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
+                    <li class=" nav-item"><a class="nav-link active" id="profileInfo" onclick="this.classList.add('active');document.getElementById('editProfile').classList.remove('active')" data-toggle="tab" href="#user" role="tab" aria-controls="home" aria-selected="true">User</a></li>
+                    <li class=" nav-item"><a class="nav-link" onclick="this.classList.add('active');document.getElementById('profileInfo').classList.remove('active')" id="editProfile" data-toggle="tab" href="#Resteurent" role="tab" aria-controls="profile" aria-selected="false">Restaurant</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-lg-9 p-0">
+            <div class="profileContentCol">
+                asdasd
+            </div>
 
-
+        </div>
+    </div>
+</div>
 
 
 

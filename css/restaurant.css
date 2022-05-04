@@ -75,358 +75,59 @@
     margin-right: 50px;
 }
 /*----------------------------------------BACKGROUNDS-------------------------------------*/
-*{
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+.mainPage{
+    margin-top: 72px ;
     padding: 0;
-    margin:0;
-    box-sizing: border-box;
-}
-.box{
     width: 100%;
-    height: 600px;
-    padding: 60px 60px;
-    color: white;
-    font-family: sans-serif;
-    text-align: center;
 }
-.homeSection{
-    height: 100vh;
-    background-attachment: fixed;
+.coverImage{
+    width: 100%;
     background-size: cover;
+    height: 300px;
 }
-#myVideo{
-    width: 100%;
-    height: 100vh;
-    object-fit: cover;
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -10;
-}
-.blackDiv{
-    position:absolute;
-    width:  100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.6);
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -2;
-}
-
-
-.aboutUsSection{
-
-    background: white;
-    height: 100vh;
-}
-
-.customersSection{
-    background-image: url("../images/customerbg.jpg");
-    background-attachment: fixed;
-    background-size: cover;
-    height: 100vh;
-}
-
-.downloadSection{
-    background: #f2f3f5;
-    height: 100vh;
-    overflow: hidden;
-}
-.TeamSection{
-    background-image: url("../images/pexels-pixabay-434337.png");
-    background-attachment: fixed;
-    background-size: cover;
-    height: 100vh;
-}
-.ContactUsSection{
-    background: #1BB464;
-    height: 100vh;
-}
-/*------------------------------------CONTENT-------------------------------------*/
-.homeContent{
-    width:  100%;
-    height: calc(100vh - 40px);
-}
-.homeContent H1{
-    color: #26e07f;
-    font-size: 50px;
-    font-family: RalewayBold;
-
-}
-.homeContent p{
-    color: white;
-    font-size: 30px;
-    font-family: RalewayLight;
-}
-.aboutUsContent{
-    background-color: white;
-    margin: 80px;
-}
-.aboutUsContent .row .col-sm-6 h1{
-    color:#26e07f;
-    font-size: 40px;
-    padding: 20px;
-    font-family: RalewayLight;
-}
-.aboutUsContent .row .col-sm-6 p{
-    color:#757575;
-    font-size: 22px;
-    padding: 5px;
-}
-.foodImages:hover{
-    border: #26e07f solid 2px;
-    box-shadow: 0 0 20px #26e07f;
-    transform: scale(1.03);
-}
-.fImage1{
-    width: 300px;
-    max-width: 100%;
-    height: 500px;
-}
-.fImage2{
-    width: 300px;
-    max-width: 100%;
-    height: 248px;
-}
-.customersContent{
-    margin: 80px;
-}
-.customerReview{
-    border-radius: 30px;
-    background-color: white;
-    height: auto;
-    margin: 20px;
-    box-shadow: 0 0 20px black;
-    padding:30px 10px 30px 10px;
-}
-.customerReview p{
-    color: #757575;
-    font-size: 15px;
-    height: auto;
-}
-.customerReview p span{
-    color: #26e07f;
-    font-size: 20px;
-}
-.customerReview div{
-    height:100px ;
-    margin-bottom: -10px;
-}
-.customerReview div img{
-    margin-top: 20px;
-    margin-left: 40px;
-    width: 70px;
-    height: 70px;
-    border-radius: 100%;
-    float: left;
-}
-.customerReview div h5{
-    margin-top: 30px;
-    margin-left: 20px;
-     color: #26e07f;
-     float: left;
- }
-.buttonTransparent{
-    margin: 20px;
-    cursor: pointer;
-    color: white;
-    background-color: transparent;
-    width: 100%;
-    height: 50px;
-    border: none;
-}
-.buttonTransparent:hover{
-    color: #26e07f;
-}
-.buttonBorderd{
-    margin: 20px;
-    cursor: pointer;
-    color:  #26e07f;
-    border:  #26e07f solid 2px;
-    border-radius: 10px;
-    background-color: transparent;
-    width: 100%;
-    height: 50px;
-}
-.buttonBorderd:hover{
-    background-color: #26e07f;
-    color: white;
-}
-.buttonBorderd:active{
-    background-color: #46F298;
-}
-.downloadContent{
-    margin: 60px;
-}
-.phoneImage{
-    position: relative;
-    top: 0;
-    height: 100vh;
-    z-index: 0;
-    overflow: hidden;
-    display: flex;
-}
-.downloadSection .row .col-md-6 h1{
-    color:#26e07f;
-    font-size: 40px;
-    padding: 20px;
-    font-family: RalewayBold;
-}
-.downloadSection .row .col-md-6 p{
-    color:#757575;
-    font-size: 22px;
-    padding: 5px;
-}
-.downloadSection .row .col-md-6 .buttonBorderd{
-    width: 50%;
-    border-radius: 50px;
-}
-.TeamContent{
-    margin: 60px;
-}
-.teamMember{
-    background-color: white;
-    border-radius: 50px;
-    height: 500px;
-    margin-left: 50px;
-    margin-right: 50px;
-    box-shadow: 0 0 10px black;
-    padding:30px 10px 30px 10px;
-    margin-top: 10px;
-}
-.grayButton {
-    margin-top: 30px;
-    cursor: pointer;
-    color: gray;
-    background-color: transparent;
-    height: 50px;
-    border: none;
-}
-.teamMember img{
-    margin-top: 20px;
-    margin-left: auto;
-    margin-right: auto;
-    width:200px;
+.profileImage{
+    width: 200px;
     height: 200px;
-    border-radius: 100%;
+    border:  #26e07f solid 2px;
     box-shadow: 0 0 20px black;
-}
-.teamMember .memInfo{
-    margin-top: 40px;
-    padding: 30px;
-
-}
-.teamMember .memInfo h3{
-    color: black;
-}
-.teamMember .memInfo h7{
-    color: gray;
-}
-.teamMember .memSocial{
-    padding: 5px;
-    margin-top: 15px;
-    height: 50px;
-
-    align-content: center;
-
-}
-.teamMember .memSocial button{
-    height: 50px;
-    width: 50px;
-    display:inline-block;
-    margin: 5px;
-    background-repeat: no-repeat;
-    background-color: transparent;
-    background-size: 40px 40px;
-    border: none;
-    background-position: center;
-    border-radius: 100%;
-}
-.facebookIcon{background-image: url("../icons/facebook.png"); }
-.facebookIcon:hover{transform: scale(1.1);}
-.instagramIcon{background-image: url("../icons/instagram.png");}
-.instagramIcon:hover{transform: scale(1.1);}
-.twitterIcon{background-image: url("../icons/twitter.png");}
-.twitterIcon:hover{transform: scale(1.1);}
-.siteIcon{background-image: url("../icons/site.png");}
-.siteIcon:hover{transform: scale(1.1);}
-
-.ContactUsContent{
-    margin-top: 30px;
-}
-.blackShadow{
-    box-shadow: 0 0 50px black;
-}
-.buttonBorderdToggle{
-    margin: 20px;
-    cursor: pointer;
-    color:  white;
-    border:  white solid 2px;
-    border-radius: 50px;
-    background-color: transparent;
-    width: 50%;
-    height: 50px;
-
-}
-.buttonBorderdToggle:hover {
-    background-color: white;
-    color: #26e07f;
-}
-.buttonBorderdToggle:active{
-    background-color: #F0F0F0;
-}
-.ContactUsContent .row .col-md-6 form table{
-    width: 100%;
-}
-.ContactUsContent .row .col-md-6 form table tr td label{
-    color: white;
-    font-family: RalewayLight;
-    font-size: 30px;
-    padding:10px;
-}
-.ContactUsContent .row .col-md-6 form table tr td{
-    width: 70%;
-    text-align: center;
-    align-content: center;
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.textField{
-    border: none;
-    width: 100%;
-    margin: 0;
-    height: 50px;
-    padding-left: 10px;
-    border-bottom: 2px solid darkgrey;
-    display: block;
-    background-color: #F2F2F2;
-}
-.textField:focus{
-    outline: none;
-}
-.line {
-    height: 2px;
-    width: 0px;
-    position: absolute;
-    background-color: black;
-    display: inline-block;
-    transition: 0.5s width ease-in-out;
+    border-radius: 30px;
+    margin-top: -70px;
+    margin-left: 50px;
     position: relative;
-    top: -17px;
     z-index: 3;
 }
-.textField:focus+.line{
-    width: 100%;
-    background-color: black;
+.profileTaps{
+    height: 50vh;
+    border-right: 1px solid gray;
+    padding-left: 50px;
+    padding-top: 50px;
 }
-.textArea{
+.profileContentCol{
     width: 100%;
-    resize: none;
-    background-color: #F2F2F2;
+    height: 100vh;
+    margin-top: -130px;
+    padding-left: 50px;
+    padding-top: 50px;
 }
-.textArea:focus{
-    outline: none;
+.profileTaps .nav-tabs{
+    margin-top: 3%;
+    border: none;
+    background: transparent;
+    width: 280px;
+}
+.profileTaps .nav-tabs .nav-link{
+    height: 50px;
+    font-weight: 600;
+    color: black;
+    border: none;
+}
+.profileTaps .nav-tabs .nav-link:hover {
+    border: none;
+}
+.profileTaps .nav-tabs .nav-link.active{
+    color: #26E07F;
 }
