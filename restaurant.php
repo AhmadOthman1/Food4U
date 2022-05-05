@@ -52,17 +52,17 @@ catch (Exception $ex){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<!--    <script>-->
-<!--        $(document).ready(function(){-->
-<!--            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {-->
-<!--                localStorage.setItem('activeTab', $(e.target).attr('href'));-->
-<!--            });-->
-<!--            var activeTab = localStorage.getItem('activeTab');-->
-<!--            if(activeTab){-->
-<!--                $('#myTab a[href="' + activeTab + '"]').tab('show');-->
-<!--            }-->
-<!--        });-->
-<!--    </script>-->
+    <script>
+        $(document).ready(function(){
+            $('a[data-toggle="tab"]').on('show.bs.tab', function(e) {
+                localStorage.setItem('activeTab', $(e.target).attr('href'));
+            });
+            var activeTab = localStorage.getItem('activeTab');
+            if(activeTab){
+                $('#myTab a[href="' + activeTab + '"]').tab('show');
+            }
+        });
+    </script>
 </head>
 <body>
 <!-- MENU -->
@@ -80,9 +80,10 @@ catch (Exception $ex){
                     <li class="nav-item"><input class="SearchTextField" type="text" placeholder="Search"><button class="SearchButton" type="button"></button></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
+                    <li class="nav-item"><a href="RMenu.php" class="nav-link ">Menu</a></li>
                     <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Orders</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Menu</a></li>
-                    <li class="nav-item"><a href="" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
+                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Reviews</a></li>
+                    <li class="nav-item"><a href="restaurant.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>
                 </ul>
             </div>
@@ -104,9 +105,9 @@ catch (Exception $ex){
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
                     <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyProfile-tab"  data-toggle="tab" href="#MyProfileTab" role="tab" aria-controls="MyProfile" aria-selected="true">My Profile</a></li>
-                    <li class=" nav-item"                           ><a class="nav-link" id="EditMyInformation-tab"   data-toggle="tab" href="#EditMyInformationTab" role="tab" aria-controls="EditMyInformation" aria-selected="false">Edit My Information</a></li>
-                    <li class=" nav-item"                           ><a class="nav-link" id="ChangePassword-tab"   data-toggle="tab" href="#ChangePasswordTab" role="tab" aria-controls="ChangePassword" aria-selected="false">Change Password</a></li>
+                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyProfile-tab"  data-toggle="tab" href="#MyProfileTab" role="tab" aria-controls="MyProfile" aria-selected="true" onclick="location.reload();">My Profile</a></li>
+                    <li class=" nav-item"                           ><a class="nav-link" id="EditMyInformation-tab"   data-toggle="tab" href="#EditMyInformationTab" role="tab" aria-controls="EditMyInformation" aria-selected="false" onclick="location.reload();">Edit My Information</a></li>
+                    <li class=" nav-item"                           ><a class="nav-link" id="ChangePassword-tab"   data-toggle="tab" href="#ChangePasswordTab" role="tab" aria-controls="ChangePassword" aria-selected="false" onclick="location.reload();">Change Password</a></li>
                 </ul>
 
             </div>
@@ -201,6 +202,7 @@ catch (Exception $ex){
                 <div class="tab-pane fade show" id="EditMyInformationTab" role="tabpanel" aria-labelledby="EditMyInformation-tab">
                     <div class="row editProfile-form">
                         <div class="col-md-12">
+                            <form action="">
                             <table>
                                 <tr>
                                     <td><label for="Name">Name:</label></td>
@@ -247,7 +249,7 @@ catch (Exception $ex){
                                             }
                                             ?>
                                             <tr>
-                                                <td style="width: 100px"><button class="blackSquaredButton">+ Add</button></td>
+                                                <td style="width: 100px"><input type="submit" value="+ Add" name="addPhone" class="blackSquaredButton"></td>
                                                 <td><input type="text" value="" placeholder="Phone *"/></td>
 
                                             </tr>
@@ -309,7 +311,7 @@ catch (Exception $ex){
                                             }
                                             ?>
                                             <tr>
-                                                <td style="width: 100px"><button class="blackSquaredButton">+ Add</button></td>
+                                                <td style="width: 100px"><input type="submit" value="+ Add" name="addLocation" class="blackSquaredButton"></td>
                                                 <td>
 
                                                     <select class="selectInput" >
@@ -332,8 +334,18 @@ catch (Exception $ex){
                                         </table>
                                     </td>
                                 </tr>
+                                <tr>
+                                    <td><label >Profile Image:</label></td>
+                                    <td><input type="file" accept=".jpg,.jpeg,.png"></td>
+                                </tr>
+                                <tr>
+                                    <td><label >Cover Image:</label></td>
+                                    <td><input  type="file" accept=".jpg,.jpeg,.png"></td>
+                                </tr>
                             </table>
-                            <button  class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">Save</button>
+
+                            <input type="submit" value="Save" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
+                            </form>
                         </div>
                     </div>
                 </div>
