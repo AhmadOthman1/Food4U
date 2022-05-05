@@ -225,8 +225,9 @@ table{
 /*------------------------------------------Menu-------------------------------------------*/
 .sectionName{
     font-family: RalewayBold;
-    padding-bottom: 10px;
+    padding-bottom: 20px;
     border-bottom: gray solid 1px;
+    float: left;
 }
 .mealDiv{
     width: 100%;
