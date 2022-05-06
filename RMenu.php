@@ -540,12 +540,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="nav navbar-nav navbar-center align-items-center">
-                    <li class="nav-item"><input class="SearchTextField" type="text" placeholder="Search"><button class="SearchButton" type="button"></button></li>
+                    <li class="nav-item"></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
                     <li class="nav-item"><a href="RMenu.php" class="nav-link ">Menu</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Orders</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Reviews</a></li>
+                    <li class="nav-item"><a href="ROrders.php" class="nav-link ">Orders</a></li>
+                    <li class="nav-item"><a href="Rreviews.php" class="nav-link ">Reviews</a></li>
                     <li class="nav-item"><a href="restaurant.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>
                 </ul>
@@ -568,7 +568,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
                     <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyMenu-tab"  data-toggle="tab" href="#MyMenu" role="tab" aria-controls="MyMenuTab" aria-selected="true" onclick="window.location=window.location;">My Menu</a></li>
+                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyMenu-tab"  data-toggle="tab" href="#MyMenuTab"  role="tab" aria-controls="MyMenu" aria-selected="true" onclick="window.location=window.location;">My Menu</a></li>
                     <li class=" nav-item" ><a class="nav-link" id="EditMyMenu-tab"  data-toggle="tab" href="#EditMyMenuTab" role="tab" aria-controls="EditMyMenu" aria-selected="false" onclick="window.location=window.location;">Add To Menu</a></li>
                 </ul>
 
