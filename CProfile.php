@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION['validmem']=1;
-$_SESSION['Email']='a@gmail.com';
+$_SESSION['Email']='Ahmad@gmail.com';
 if(isset($_SESSION['validmem'])){
     if($_SESSION['validmem']==1){
 
@@ -15,28 +15,45 @@ else{
 }
 $name="";
 $profileImage="";
-$description="";
-$coverImage="";
-$facebookLink="";
-$InstagramLink="";
-$siteLink="";
+$phone="";
+$gender="";
+$city="";
+$address="";
 try{
     $conn = new mysqli('localhost','root','','food4u');
-    $qrstr="SELECT `name`, `level`, `profileImage`,`description`, `coverImage`, `facebookLink`, `InstagramLink`, `siteLink` FROM user ,restaurant WHERE user.Email=restaurant.Email and user.Email='".$_SESSION['Email']."'";
+    $qrstr="SELECT `name`, `profileImage`, `phone`, `gender`, `city`, `address` FROM `user`,`customer` WHERE  `user`.`Email`=`customer`.`Email` and `user`.`Email`='".$_SESSION['Email']."'";
     $res=$conn->query($qrstr);
     $row=$res->fetch_object();
     $name=$row->name;
     $profileImage=$row->profileImage;
-    $description=$row->description;
-    $coverImage=$row->coverImage;
-    $facebookLink=$row->facebookLink;
-    $InstagramLink=$row->InstagramLink;
-    $siteLink=$row->siteLink;
+    $phone=$row->phone;
+    $gender=$row->gender;
+    $city=$row->city;
+    $address=$row->address;
     $conn->close();
+    $MSelect="";
+    $FSelect="";
+    if($gender == 'M'){$MSelect="selected";$FSelect="";}
+    else{$FSelect="selected";$MSelect="";}
+    $j="";$N="";$Tu="";$Tul="";$Q="";$S="";$R="";$jeri="";$jeru="";$B="";$H="";
+    if($city == "Jenin")$j="selected";
+    elseif ($city == "Nablus")$N="selected";
+    elseif ($city == "Tubas")$Tu="selected";
+    elseif ($city == "Tulkarm")$Tul="selected";
+    elseif ($city == "Qalqilya")$Q="selected";
+    elseif ($city == "Salfit")$S="selected";
+    elseif ($city == "Ramallah")$R="selected";
+    elseif ($city == "Jericho")$jeri="selected";
+    elseif ($city == "Jerusalem")$jeru="selected";
+    elseif ($city == "Bethlehem")$B="selected";
+    elseif ($city == "Hebron")$H="selected";
 }
 catch (Exception $ex){
     echo "<p>".$ex->getTraceAsString()."</p>";
 }
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -69,7 +86,7 @@ catch (Exception $ex){
 <section class="nd-flex justify-content-end avbar custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="Restaurant.php">
+            <a class="navbar-brand" href="">
                 Food<span style="color: #26e07f;font-size: 30px">4</span>U
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -77,11 +94,11 @@ catch (Exception $ex){
             </button>
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="nav navbar-nav navbar-center align-items-center">
-                    <li class="nav-item"><input class="SearchTextField" type="text" placeholder="Search"><button class="SearchButton" type="button"></button></li>
+                    <li class="nav-item"><form action=""><input class="SearchTextField" type="text" placeholder="Search"><input type="submit" class="SearchButton" value=""></form></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
-                    <li class="nav-item"><a href="RMenu.php" class="nav-link ">Menu</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Orders</a></li>
+                    <li class="nav-item"><a href="" class="nav-link ">Home</a></li>
+                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">My cart</a></li>
                     <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Reviews</a></li>
                     <li class="nav-item"><a href="CProfile.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>
@@ -111,7 +128,7 @@ catch (Exception $ex){
                 <div class="tab-pane fade show active" id="MyProfileTab" role="tabpanel" aria-labelledby="MyProfile-tab">
                     <div class="row profile-form">
                         <div class="col-md-12">
-                            <table>
+                            <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                 <tr>
                                     <td><label for="Name">Name:</label></td>
                                     <td><input id="Name" type="text" placeholder="Name *" value="<?php echo $name?>" disabled/></td>
@@ -121,11 +138,21 @@ catch (Exception $ex){
                                     <td><input id="Email" type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>" disabled/></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="Phone">Phone:</label></td>
-                                    <td><input id="Phone" type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>" disabled/></td>
+                                    <td><label for="Gender">Gender:</label></td>
+                                    <td><input id="Gender" type="text" placeholder="Gender *" value="<?php echo $gender?>" disabled/></td>
                                 </tr>
-
-
+                                <tr>
+                                    <td><label for="Phone">Phone:</label></td>
+                                    <td><input id="Phone" type="text" placeholder="Phone *" value="<?php echo $phone?>" disabled/></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="City">City:</label></td>
+                                    <td><input id="City" type="text" placeholder="City *" value="<?php echo $city?>" disabled/></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="Address">Address:</label></td>
+                                    <td><input id="Address" type="text" placeholder="Address *" value="<?php echo $address?>" disabled/></td>
+                                </tr>
 
                             </table>
                         </div>
@@ -135,146 +162,54 @@ catch (Exception $ex){
                     <div class="row editProfile-form">
                         <div class="col-md-12">
                             <form action="">
-                            <table>
-                                <tr>
-                                    <td><label for="Name">Name:</label></td>
-                                    <td><input id="Name" type="text" placeholder="Name *" value="<?php echo $name?>"/></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="Email">Email:</label></td>
-                                    <td><input id="Email" type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>"/></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="Description">Description:</label></td>
-                                    <td><textarea type="text" id="Description" placeholder="Description *" cols="30" rows="5" ><?php echo $description?></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="FbLink">Facebook Link:</label></td>
-                                    <td><input id="FbLink" type="text" placeholder="Facebook Link *" value="<?php echo $facebookLink?>" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="FbLink">Instagram Link:</label></td>
-                                    <td><input id="FbLink" type="text" placeholder="Instagram Link *" value="<?php echo $InstagramLink?>" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="FbLink">Site Link:</label></td>
-                                    <td><input id="FbLink" type="text" placeholder="FbLink Link *" value="<?php echo $siteLink?>" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label>Phone:</label></td>
-                                    <td>
-                                        <table>
-                                            <?php
-                                            try{
-                                                $conn = new mysqli('localhost','root','','food4u');
-                                                $qrstr="SELECT `phone` FROM `restaurantphone` WHERE `Email`='".$_SESSION['Email']."'";
-                                                $res=$conn->query($qrstr);
-                                                for($i=0;$i<$res->num_rows;$i++) {
-                                                    $row = $res->fetch_object();
-                                                    $phone = $row->phone;
-                                                    echo '<tr><td></td><td><input type="text" placeholder="Phone *"value="'.$phone.'" disabled/></td></tr>';
-                                                }
-                                                $conn->close();
-                                            }
-                                            catch (Exception $ex){
-                                                echo "<p>".$ex->getTraceAsString()."</p>";
-                                            }
-                                            ?>
-                                            <tr>
-                                                <td style="width: 100px"><input type="submit" value="+ Add" name="addPhone" class="blackSquaredButton"></td>
-                                                <td><input type="text" value="" placeholder="Phone *"/></td>
+                                <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+                                    <tr>
+                                        <td><label for="Name">Name:</label></td>
+                                        <td><input id="Name" type="text" placeholder="Name *" value="<?php echo $name?>" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="Email">Email:</label></td>
+                                        <td><input id="Email" type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="Gender">Gender:</label></td>
+                                        <td><select  class="selectInput" >
+                                                <option <?php echo $MSelect ?> value ="M">Male</option>
+                                                <option <?php echo $FSelect ?> value="F">Female</option>
+                                            </select></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="Phone">Phone:</label></td>
+                                        <td><input id="Phone" type="text" placeholder="Phone *" value="<?php echo $phone?>" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="City">City:</label></td>
+                                        <td>
+                                            <select  class="selectInput" >
+                                                <option <?php echo $j ?> value="Jenin">Jenin</option>
+                                                <option <?php echo $N ?> value="Nablus">Nablus</option>
+                                                <option <?php echo $Tu ?> value="Tubas">Tubas</option>
+                                                <option <?php echo $Tul ?> value="Tulkarm">Tulkarm</option>
+                                                <option <?php echo $Q?> value="Qalqilya">Qalqilya</option>
+                                                <option <?php echo $S?> value="Salfit">Salfit</option>
+                                                <option <?php echo $R?> value="Ramallah">Ramallah</option>
+                                                <option <?php echo$jeri?> value="Jericho">Jericho</option>
+                                                <option <?php echo $jeru?> value="Jerusalem">Jerusalem</option>
+                                                <option <?php echo $B?> value="Bethlehem">Bethlehem</option>
+                                                <option <?php echo $H?> value="Hebron">Hebron</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="Address">Address:</label></td>
+                                        <td><input id="Address" type="text" placeholder="Address *" value="<?php echo $address?>" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label >Profile Image:</label></td>
+                                        <td><input type="file" accept=".jpg,.jpeg,.png"><h6 style='color: gray'>image must be less than 200KB</h6></td>
+                                    </tr>
 
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label>Location:</label></td>
-                                    <td>
-                                        <table>
-
-                                            <?php
-                                            try{
-                                                $conn = new mysqli('localhost','root','','food4u');
-                                                $qrstr="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$_SESSION['Email']."'";
-                                                $res=$conn->query($qrstr);
-                                                for($i=0;$i<$res->num_rows;$i++) {
-                                                    $row = $res->fetch_object();
-                                                    $city = $row->city;
-                                                    $address = $row->address;
-                                                    $j="";$N="";$Tu="";$Tul="";$Q="";$S="";$R="";$jeri="";$jeru="";$B="";$H="";
-                                                    if($city == "Jenin")$j="selected";
-                                                    elseif ($city == "Nablus")$N="selected";
-                                                    elseif ($city == "Tubas")$Tu="selected";
-                                                    elseif ($city == "Tulkarm")$Tul="selected";
-                                                    elseif ($city == "Qalqilya")$Q="selected";
-                                                    elseif ($city == "Salfit")$S="selected";
-                                                    elseif ($city == "Ramallah")$R="selected";
-                                                    elseif ($city == "Jericho")$jeri="selected";
-                                                    elseif ($city == "Jerusalem")$jeru="selected";
-                                                    elseif ($city == "Bethlehem")$B="selected";
-                                                    elseif ($city == "Hebron")$H="selected";
-
-                                                    echo '<tr>
-                                                            <td>
-                                                                <select  class="selectInput" >
-                                                                    <option'.$j.' value="Jenin">Jenin</option>
-                                                                    <option'.$N.' value="Nablus">Nablus</option>
-                                                                    <option'.$Tu.' value="Tubas">Tubas</option>
-                                                                    <option'.$Tul.' value="Tulkarm">Tulkarm</option>
-                                                                    <option'.$Q.' value="Qalqilya">Qalqilya</option>
-                                                                    <option'.$S.' value="Salfit">Salfit</option>
-                                                                    <option'.$R.' value="Ramallah">Ramallah</option>
-                                                                    <option'.$jeri.' value="Jericho">Jericho</option>
-                                                                    <option'.$jeru.' value="Jerusalem">Jerusalem</option>
-                                                                    <option'.$B.' value="Bethlehem">Bethlehem</option>
-                                                                    <option'.$H.' value="Hebron">Hebron</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" value="'.$address.'" />
-                                                            </td>
-                                                            </tr>';
-                                                }
-                                                $conn->close();
-                                            }
-                                            catch (Exception $ex){
-                                                echo "<p>".$ex->getTraceAsString()."</p>";
-                                            }
-                                            ?>
-                                            <tr>
-                                                <td style="width: 100px"><input type="submit" value="+ Add" name="addLocation" class="blackSquaredButton"></td>
-                                                <td>
-
-                                                    <select class="selectInput" >
-                                                        <option selected value="Jenin">Jenin</option>
-                                                        <option value="Nablus">Nablus</option>
-                                                        <option value="Tubas">Tubas</option>
-                                                        <option value="Tulkarm">Tulkarm</option>
-                                                        <option value="Qalqilya">Qalqilya</option>
-                                                        <option value="Salfit">Salfit</option>
-                                                        <option value="Ramallah">Ramallah</option>
-                                                        <option value="Jericho">Jericho</option>
-                                                        <option value="Jerusalem">Jerusalem</option>
-                                                        <option value="Bethlehem">Bethlehem</option>
-                                                        <option value="Hebron">Hebron</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" value="" placeholder="Address *"/></td>
-
-                                            </tr>
-                                        </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label >Profile Image:</label></td>
-                                    <td><input type="file" accept=".jpg,.jpeg,.png"></td>
-                                </tr>
-                                <tr>
-                                    <td><label >Cover Image:</label></td>
-                                    <td><input  type="file" accept=".jpg,.jpeg,.png"></td>
-                                </tr>
-                            </table>
+                                </table>
 
                             <input type="submit" value="Save" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
                             </form>
@@ -284,7 +219,8 @@ catch (Exception $ex){
                 <div class="tab-pane fade show" id="ChangePasswordTab" role="tabpanel" aria-labelledby="ChangePassword-tab">
                     <div class="row editProfile-form">
                         <div class="col-md-12">
-                            <table>
+                            <form action="">
+                            <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                 <tr>
                                     <td><label for="OPassword">Old Password: </label></td>
                                     <td><input id="OPassword" type="password" placeholder="Old Password *" /></td>
@@ -299,7 +235,8 @@ catch (Exception $ex){
                                 </tr>
 
                             </table>
-                            <button  class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">Change</button>
+                            <input type="submit" value="Change" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
+                            </form>
                         </div>
                     </div>
                 </div>
