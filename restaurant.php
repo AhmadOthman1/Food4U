@@ -77,12 +77,12 @@ catch (Exception $ex){
             </button>
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="nav navbar-nav navbar-center align-items-center">
-                    <li class="nav-item"><input class="SearchTextField" type="text" placeholder="Search"><button class="SearchButton" type="button"></button></li>
+                    <li class="nav-item"></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
                     <li class="nav-item"><a href="RMenu.php" class="nav-link ">Menu</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Orders</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Reviews</a></li>
+                    <li class="nav-item"><a href="ROrders.php" class="nav-link ">Orders</a></li>
+                    <li class="nav-item"><a href="Rreviews.php" class="nav-link ">Reviews</a></li>
                     <li class="nav-item"><a href="restaurant.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>
                 </ul>
@@ -231,107 +231,49 @@ catch (Exception $ex){
                                 <tr>
                                     <td><label>Phone:</label></td>
                                     <td>
-                                        <table>
-                                            <?php
-                                            try{
-                                                $conn = new mysqli('localhost','root','','food4u');
-                                                $qrstr="SELECT `phone` FROM `restaurantphone` WHERE `Email`='".$_SESSION['Email']."'";
-                                                $res=$conn->query($qrstr);
-                                                for($i=0;$i<$res->num_rows;$i++) {
-                                                    $row = $res->fetch_object();
-                                                    $phone = $row->phone;
-                                                    echo '<tr><td></td><td><input type="text" placeholder="Phone *"value="'.$phone.'" disabled/></td></tr>';
+                                        <?php
+                                        try{
+                                            $conn = new mysqli('localhost','root','','food4u');
+                                            $qrstr="SELECT `phone` FROM `restaurantphone` WHERE `Email`='".$_SESSION['Email']."'";
+                                            $res=$conn->query($qrstr);
+                                            $phones="";
+                                            for($i=0;$i<$res->num_rows;$i++) {
+                                                $row = $res->fetch_object();
+                                                $phone = $row->phone;
+                                                $phones.=$phone.",";
                                                 }
-                                                $conn->close();
-                                            }
-                                            catch (Exception $ex){
-                                                echo "<p>".$ex->getTraceAsString()."</p>";
-                                            }
-                                            ?>
-                                            <tr>
-                                                <td style="width: 100px"><input type="submit" value="+ Add" name="addPhone" class="blackSquaredButton"></td>
-                                                <td><input type="text" value="" placeholder="Phone *"/></td>
-
-                                            </tr>
-                                        </table>
+                                            echo '<tr><td></td><td><textarea type="text" placeholder="Phone *" >'.$phones.'</textarea></td></tr>';
+                                            $conn->close();
+                                        }
+                                        catch (Exception $ex){
+                                            echo "<p>".$ex->getTraceAsString()."</p>";
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td><label>Location:</label></td>
                                     <td>
-                                        <table>
+                                        <?php
+                                        try{
+                                            $conn = new mysqli('localhost','root','','food4u');
+                                            $qrstr="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$_SESSION['Email']."'";
+                                            $res=$conn->query($qrstr);
+                                            $citys="";
+                                            for($i=0;$i<$res->num_rows;$i++) {
+                                                $row = $res->fetch_object();
+                                                $city = $row->city;
+                                                $address = $row->address;
+                                                $citys.=$city."/".$address.",";
 
-                                            <?php
-                                            try{
-                                                $conn = new mysqli('localhost','root','','food4u');
-                                                $qrstr="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$_SESSION['Email']."'";
-                                                $res=$conn->query($qrstr);
-                                                for($i=0;$i<$res->num_rows;$i++) {
-                                                    $row = $res->fetch_object();
-                                                    $city = $row->city;
-                                                    $address = $row->address;
-                                                    $j="";$N="";$Tu="";$Tul="";$Q="";$S="";$R="";$jeri="";$jeru="";$B="";$H="";
-                                                    if($city == "Jenin")$j="selected";
-                                                    elseif ($city == "Nablus")$N="selected";
-                                                    elseif ($city == "Tubas")$Tu="selected";
-                                                    elseif ($city == "Tulkarm")$Tul="selected";
-                                                    elseif ($city == "Qalqilya")$Q="selected";
-                                                    elseif ($city == "Salfit")$S="selected";
-                                                    elseif ($city == "Ramallah")$R="selected";
-                                                    elseif ($city == "Jericho")$jeri="selected";
-                                                    elseif ($city == "Jerusalem")$jeru="selected";
-                                                    elseif ($city == "Bethlehem")$B="selected";
-                                                    elseif ($city == "Hebron")$H="selected";
-
-                                                    echo '<tr>
-                                                            <td>
-                                                                <select  class="selectInput" >
-                                                                    <option'.$j.' value="Jenin">Jenin</option>
-                                                                    <option'.$N.' value="Nablus">Nablus</option>
-                                                                    <option'.$Tu.' value="Tubas">Tubas</option>
-                                                                    <option'.$Tul.' value="Tulkarm">Tulkarm</option>
-                                                                    <option'.$Q.' value="Qalqilya">Qalqilya</option>
-                                                                    <option'.$S.' value="Salfit">Salfit</option>
-                                                                    <option'.$R.' value="Ramallah">Ramallah</option>
-                                                                    <option'.$jeri.' value="Jericho">Jericho</option>
-                                                                    <option'.$jeru.' value="Jerusalem">Jerusalem</option>
-                                                                    <option'.$B.' value="Bethlehem">Bethlehem</option>
-                                                                    <option'.$H.' value="Hebron">Hebron</option>
-                                                                </select>
-                                                            </td>
-                                                            <td>
-                                                                <input type="text" value="'.$address.'" />
-                                                            </td>
-                                                            </tr>';
-                                                }
-                                                $conn->close();
                                             }
-                                            catch (Exception $ex){
-                                                echo "<p>".$ex->getTraceAsString()."</p>";
-                                            }
-                                            ?>
-                                            <tr>
-                                                <td style="width: 100px"><input type="submit" value="+ Add" name="addLocation" class="blackSquaredButton"></td>
-                                                <td>
-
-                                                    <select class="selectInput" >
-                                                        <option selected value="Jenin">Jenin</option>
-                                                        <option value="Nablus">Nablus</option>
-                                                        <option value="Tubas">Tubas</option>
-                                                        <option value="Tulkarm">Tulkarm</option>
-                                                        <option value="Qalqilya">Qalqilya</option>
-                                                        <option value="Salfit">Salfit</option>
-                                                        <option value="Ramallah">Ramallah</option>
-                                                        <option value="Jericho">Jericho</option>
-                                                        <option value="Jerusalem">Jerusalem</option>
-                                                        <option value="Bethlehem">Bethlehem</option>
-                                                        <option value="Hebron">Hebron</option>
-                                                    </select>
-                                                </td>
-                                                <td><input type="text" value="" placeholder="Address *"/></td>
-
-                                            </tr>
-                                        </table>
+                                            echo '<tr><td></td><td><textarea type="text" placeholder="Phone *" >'.$citys.'</textarea></td></tr>';
+                                            $conn->close();
+                                        }
+                                        catch (Exception $ex){
+                                            echo "<p>".$ex->getTraceAsString()."</p>";
+                                        }
+                                        ?>
                                     </td>
                                 </tr>
                                 <tr>
