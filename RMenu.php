@@ -50,7 +50,7 @@ catch (Exception $ex){
 <?php
 $disableEditItemDiv="";
 $errormsg="";
-$disableErrorPriceDiv="";
+$disableSmallDiv="";
 
 
 
@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $disableEditItemDiv="";
     }
     if (isset($_POST['errorOkButton'])) {
-        $disableErrorPriceDiv="";
+        $disableSmallDiv="";
         $errormsg="";
     }
     if (isset($_POST['SaveMenuItem'])) {
@@ -78,10 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $iItem=$_POST['MenuItemId'];
 
         if(!empty($nItem) && !empty($dItem) && !empty($pItem)){
-            $disableErrorPriceDiv="";
+            $disableSmallDiv="";
             $errormsg="";
             if(is_numeric($_POST['MenuItemPrice'])){
-                $disableErrorPriceDiv="";
+                $disableSmallDiv="";
                 $errormsg="";
                 $conn = new mysqli('localhost', 'root', '', 'food4u');
                 $qrstr="UPDATE `meals` SET `name`='".$nItem."',`description`='".$dItem."',`price`='".abs($pItem)."' WHERE `id`='".$iItem."'";
@@ -107,8 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else{// print\show html error div
                 $errormsg="Please Enater Valid Price";
-                $disableErrorPriceDiv="
- <div class='errorMenuItem ' >
+                $disableSmallDiv="<div class='errorMenuItem ' >
     <div class='errorMenuItem2 container h-100' >
         <div class='row align-items-center h-100' >
             <div class='col-md-2' ></div>
@@ -117,7 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class='errorMenuItemContent' style='align: center'>
                     <form method='POST' action=".$_SERVER["PHP_SELF"].">
                         <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
-                            <tr><td style='text-align: center; vertical-align: middle;'><input class='errorTextField ' disabled type='text' name='ErrorPrice' value='$errormsg'></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
                             <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
                         </table>
                     </form>
@@ -126,15 +125,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class='col-md-2' ></div>
         </div>
     </div>
-</div> 
-" ;
+</div> " ;
 
             }
         }
         else{
             $errormsg="Please Enater Valid Name / description";
-            $disableErrorPriceDiv="
- <div class='errorMenuItem ' >
+            $disableSmallDiv="<div class='errorMenuItem ' >
     <div class='errorMenuItem2 container h-100' >
         <div class='row align-items-center h-100' >
             <div class='col-md-2' ></div>
@@ -143,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class='errorMenuItemContent' style='align: center'>
                     <form method='POST' action=".$_SERVER["PHP_SELF"].">
                         <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
-                            <tr><td style='text-align: center; vertical-align: middle;'><input class='errorTextField ' disabled type='text' name='ErrorPrice' value='$errormsg'></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4' >$errormsg</textarea></td></tr>
                             <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
                         </table>
                     </form>
@@ -152,12 +149,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class='col-md-2' ></div>
         </div>
     </div>
-</div> 
-" ;
+</div> " ;
         }
 
     }
+
+    if (isset($_POST['deleteSection'])) {
+        $dSecId=$_POST['deleteSectionId'];
+        $conn = new mysqli('localhost', 'root', '', 'food4u');
+        $qrstr="DELETE FROM `sections` WHERE `sName`='".$dSecId."'";
+        $conn->query($qrstr);
+        $errormsg="";
+        $disableSmallDiv="";
+    }
+    if (isset($_POST['saveEditedSection'])) {
+        $dSecId=$_POST['EditSectionId'];
+        $conn = new mysqli('localhost', 'root', '', 'food4u');
+        $qrstr="UPDATE `sections` SET `sName`='".$dSecId."' WHERE `Email`='".$_SESSION['Email']."' and `sName`='".$_POST['EditSectionIdH']."'";
+        $conn->query($qrstr);
+        $conn->close();
+        $errormsg="";
+        $disableSmallDiv="";
+    }
 }
+
+
+
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['editMenuItem'])) {
         $conn = new mysqli('localhost', 'root', '', 'food4u');
@@ -230,6 +249,255 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $conn->close();
     }
+    if (isset($_POST['deleteSecName'])) {
+        $errormsg="Deleting this section will delete all items belonging to it, are you sure?";
+        $dSecId=$_POST['secId'];
+        $disableSmallDiv="<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=".$_SERVER["PHP_SELF"].">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr style='display: none'><td> <input type='text' name='deleteSectionId' value='".$dSecId."'></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4' >$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='deleteSection' style='width:45%; height:50px' value='Delete'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:45%; height:50px' value='Cancel'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> " ;
+    }
+    if (isset($_POST['chanegSecName'])) {
+        $errormsg = "Section name must be unique, Otherwise it wont change";
+        $dSecId = $_POST['secId'];
+        $disableSmallDiv = "<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'> <input type='text' class='activTextField' name='EditSectionId' value='" . $dSecId . "'></td></tr>
+                            <tr style='display: none;'><td style='text-align: center; vertical-align: middle;'> <input type='text' class='activTextField' name='EditSectionIdH' value='" . $dSecId . "'></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='saveEditedSection' style='width:45%; height:50px;float: left' value='Save'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:45%; height:50px' value='Cancel'></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'></td></tr>  
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> ";
+    }
+    if(isset($_POST['addNewSecButton'])){
+        $secName=$_POST['newSecName'];
+        $disableSmallDiv="";
+        $errormsg="";
+        $isSec=false;
+        if(!empty($secName) ){
+            $disableSmallDiv="";
+            $errormsg="";
+            $conn = new mysqli('localhost', 'root', '', 'food4u');
+            $qrstr2="SELECT `sName` FROM `sections` WHERE `Email`='".$_SESSION['Email']."'";
+            $res2=$conn->query($qrstr2);
+            for($i=0;$i<$res2->num_rows;$i++){
+                $row=$res2->fetch_object();
+                if($row->sName == $secName){
+                    $isSec=true;
+                }
+            }
+            $conn->close();
+            if(!$isSec){
+                $conn = new mysqli('localhost', 'root', '', 'food4u');
+                $qrstr = "INSERT INTO `sections`(`Email`, `sName`) VALUES ('" . $_SESSION['Email'] . "','".$secName."') ";
+                $conn->query($qrstr);
+                $conn->close();
+            }
+            else{
+                $errormsg = "Please Enater Unique Section name";
+                $disableSmallDiv = "<div class='errorMenuItem ' >
+        <div class='errorMenuItem2 container h-100' >
+            <div class='row align-items-center h-100' >
+                <div class='col-md-2' ></div>
+    
+                <div class='col-md-8 mx-auto'>
+                    <div class='errorMenuItemContent' style='align: center'>
+                        <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                            <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                                <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                                <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class='col-md-2' ></div>
+            </div>
+        </div>
+    </div> ";
+            }
+        }
+        else {
+            $errormsg = "Make Sure you fill all Fields";
+            $disableSmallDiv = "<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> ";
+        }
+    }
+    if(isset($_POST['addNewItemButton'])){
+        $NIName=$_POST['newItemName'];
+        $NIDes=$_POST['newItemDescription'];
+        $NIPrice=$_POST['newItemPrice'];
+        $NISec=$_POST['newItemSec'];
+        $disableSmallDiv="";
+        $errormsg="";
+        $isSec=false;
+        if(!empty($NIName) && !empty($NIDes) && !empty($NIPrice) && !empty($NISec)){
+            $disableSmallDiv="";
+            $errormsg="";
+            $conn = new mysqli('localhost', 'root', '', 'food4u');
+            $qrstr2="SELECT `sName` FROM `sections` WHERE `Email`='".$_SESSION['Email']."'";
+            $res2=$conn->query($qrstr2);
+            for($i=0;$i<$res2->num_rows;$i++){
+                $row=$res2->fetch_object();
+                if($row->sName == $NISec){
+                    $isSec=true;
+                }
+            }
+            $conn->close();
+            if($isSec) {
+                if (is_numeric($_POST['newItemPrice']) && isset($_FILES['newItemImage']['name'])) {
+                    $disableSmallDiv = "";
+                    $errormsg = "";
+                    $fileName = $_FILES['newItemImage']['name'];
+                    $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+                    $allowTypes = array('jpg', 'png', 'jpeg');
+                    if (in_array($fileType, $allowTypes) && $_FILES['newItemImage']['size'] < 200000) {
+                        $disableSmallDiv = "";
+                        $errormsg = "";
+                        $image = $_FILES['newItemImage']['tmp_name'];
+                        $imgContent = addslashes(file_get_contents($image));
+                        $conn = new mysqli('localhost', 'root', '', 'food4u');
+                        $qrstr = "INSERT INTO `meals`(`Email`, `name`, `description`, `price`, `section`, `image`) VALUES ('" . $_SESSION['Email'] . "','" . $NIName . "','" . $NIDes . "','" . abs($NIPrice) . "','" . $NISec . "','" . $imgContent . "')";
+                        $conn->query($qrstr);
+                        $conn->close();
+                    } else {
+                        $errormsg = "Please Enater Valid Image(less Than 200KB)";
+                        $disableSmallDiv = "<div class='errorMenuItem ' >
+        <div class='errorMenuItem2 container h-100' >
+            <div class='row align-items-center h-100' >
+                <div class='col-md-2' ></div>
+    
+                <div class='col-md-8 mx-auto'>
+                    <div class='errorMenuItemContent' style='align: center'>
+                        <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                            <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                                <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                                <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class='col-md-2' ></div>
+            </div>
+        </div>
+    </div> ";
+                    }
+                } else {
+                    $errormsg = "Please Enater Valid Price/Image";
+                    $disableSmallDiv = "<div class='errorMenuItem ' >
+        <div class='errorMenuItem2 container h-100' >
+            <div class='row align-items-center h-100' >
+                <div class='col-md-2' ></div>
+    
+                <div class='col-md-8 mx-auto'>
+                    <div class='errorMenuItemContent' style='align: center'>
+                        <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                            <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                                <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                                <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class='col-md-2' ></div>
+            </div>
+        </div>
+    </div> ";
+                }
+            }
+            else{
+                $errormsg = "Please Enater Valid Section name";
+                $disableSmallDiv = "<div class='errorMenuItem ' >
+        <div class='errorMenuItem2 container h-100' >
+            <div class='row align-items-center h-100' >
+                <div class='col-md-2' ></div>
+    
+                <div class='col-md-8 mx-auto'>
+                    <div class='errorMenuItemContent' style='align: center'>
+                        <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                            <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                                <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                                <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                            </table>
+                        </form>
+                    </div>
+                </div>
+                <div class='col-md-2' ></div>
+            </div>
+        </div>
+    </div> ";
+            }
+        }
+        else {
+            $errormsg = "Make Sure you fill all Fields";
+            $disableSmallDiv = "<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> ";
+        }
+    }
+
 }
 ?>
 
@@ -260,7 +528,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <!-- MENU -->
 <?php echo $disableEditItemDiv; ?>
-<?php echo $disableErrorPriceDiv; ?>
+<?php echo $disableSmallDiv; ?>
 <section class="nd-flex justify-content-end custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
         <div class="container-fluid">
@@ -300,8 +568,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
                     <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyMenu-tab"  data-toggle="tab" href="#MyMenu" role="tab" aria-controls="MyMenuTab" aria-selected="true" onclick="location.reload();">My Menu</a></li>
-                    <li class=" nav-item" ><a class="nav-link" id="EditMyMenu-tab"   data-toggle="tab" href="#EditMyMenuTab" role="tab" aria-controls="EditMyMenu" aria-selected="false" onclick="location.reload();">Edit Menu</a></li>
+                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyMenu-tab"  data-toggle="tab" href="#MyMenu" role="tab" aria-controls="MyMenuTab" aria-selected="true" onclick="window.location=window.location;">My Menu</a></li>
+                    <li class=" nav-item" ><a class="nav-link" id="EditMyMenu-tab"  data-toggle="tab" href="#EditMyMenuTab" role="tab" aria-controls="EditMyMenu" aria-selected="false" onclick="window.location=window.location;">Add To Menu</a></li>
                 </ul>
 
             </div>
@@ -380,7 +648,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="tab-pane fade show" id="EditMyMenuTab" role="tabpanel" aria-labelledby="EditMyMenu-tab">
                     <div class="row editProfile-form">
                         <div class="col-md-12">
-
+                            <br>
+                            <form method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>" enctype='multipart/form-data'>
+                                <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+                                    <tr >
+                                        <td><h2>Add New Item</h2></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="newItemName">Name: </label></td>
+                                        <td><input type="text" class="activTextField" name="newItemName" placeholder="Name *"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="newItemDescription">Description: </label></td>
+                                        <td><input type="text" class="activTextField" name="newItemDescription" placeholder="Description *"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="newItemPrice">Price: </label></td>
+                                        <td><input type="text" class="activTextField" name="newItemPrice" placeholder="Price *"></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="newItemSec">Section: </label></td>
+                                        <td><input type="text" class="activTextField" name="newItemSec" placeholder="Section *"><h6 style='color: gray'>Section name must be exists</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label >Image: </label></td>
+                                        <td><input type='file' name='newItemImage' id='newItemImage' accept='.jpg,.jpeg,.png'><h6 style='color: gray'>image must be less than 200KB</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><input type="submit" name="addNewItemButton" value="Add" class="blackSquaredButtonBorderd"></td>
+                                    </tr>
+                                </table>
+                            </form>
+                            <br>
+                            <form method="POST" action="<?php echo $_SERVER["PHP_SELF"] ?>">
+                                <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+                                    <tr >
+                                        <td><h2>Add New Section</h2></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="newSecName">Name: </label></td>
+                                        <td><input type="text" class="activTextField" name="newSecName" placeholder="Name *"><h6 style="color: gray">Section name must be unique</h6></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td><input type="submit" name="addNewSecButton" value="Add" class="blackSquaredButtonBorderd"></td>
+                                    </tr>
+                                </table>
+                            </form>
                         </div>
                     </div>
                 </div>
