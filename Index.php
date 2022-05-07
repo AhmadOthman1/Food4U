@@ -2,6 +2,48 @@
 session_start();
 session_unset();
 session_destroy();
+$errormsg="";
+$disableSmallDiv="";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['errorOkButton'])) {
+        $disableSmallDiv="";
+        $errormsg="";
+    }
+    if (isset($_POST['coSend'])) {
+        $coEmail=$_POST['coEmail'];
+        $coSub=$_POST['coSub'];
+        $coTxt=$_POST['coTxt'];
+        if(!empty($coEmail)&&!empty($coSub)&&!empty($coTxt)&&strpos($coEmail, '@')&&strpos($coEmail, '.')){
+            $errormsg="";
+            $disableSmallDiv="";
+            $conn = new mysqli('localhost', 'root', '', 'food4u');
+            $qrstr = "INSERT INTO `contactus`(`Email`, `sub`, `text`) VALUES ('".$coEmail."','".$coSub."','".$coTxt."') ";
+            $conn->query($qrstr);
+            $conn->close();
+        }else{
+            $errormsg="ERROR: Please Fill All Fileds With Valid Values";
+            $disableSmallDiv="<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=".$_SERVER["PHP_SELF"].">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> " ;
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -16,6 +58,7 @@ session_destroy();
 
 </head>
 <body>
+<?php echo $disableSmallDiv; ?>
 <!-- MENU -->
 <section class="nd-flex justify-content-end avbar custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
 
@@ -216,22 +259,22 @@ session_destroy();
     <div class="ContactUsContent container">
         <div class="row">
             <div class="col-md-6">
-                <form action="post">
+                <form action="<?php echo $_SERVER["PHP_SELF"];?>" method="post" >
                     <table>
                         <tr>
                             <td data-aos="fade-up" data-aos-duration="500" data-aos-delay="100"><label>Contact Us</label></td>
                         </tr>
                         <tr>
-                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><input class="textField" type="text" placeholder="Your Email"><div class="line"></div></td>
+                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="300"><input class="textField" name="coEmail"id="coEmail" type="text" placeholder="Your Email"><div class="line"></div></td>
                         </tr>
                         <tr>
-                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><input class="textField" type="text" placeholder="Subject"><div class="line"></td>
+                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="400"><input class="textField" name="coSub"id="coSub" type="text" placeholder="Subject"><div class="line"></td>
                         </tr>
                         <tr>
-                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><textarea class="textArea"  id="" cols="40" rows="10" placeholder="Text"></textarea></td>
+                            <td data-aos="fade-up" data-aos-duration="1000" data-aos-delay="500"><textarea class="textArea"  name="coTxt"id="coTxt" cols="40" rows="10" placeholder="Text"></textarea></td>
                         </tr>
                         <tr>
-                            <td data-aos="fade-up" data-aos-duration="1500" data-aos-delay="800"><input class="buttonBorderdToggle" type="submit" value="Send"></td>
+                            <td data-aos="fade-up" data-aos-duration="1500" data-aos-delay="800"><input class="buttonBorderdToggle" name="coSend"id="coSend" type="submit" value="Send"></td>
                         </tr>
                     </table>
                 </form>

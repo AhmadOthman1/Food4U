@@ -39,6 +39,10 @@ catch (Exception $ex){
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $disableSmallDiv="";
     $errormsg="";
+    if (isset($_POST['errorOkButton'])) {
+        $disableSmallDiv="";
+        $errormsg="";
+    }
     if(isset($_POST['changer'])) {
 
     $opass = $_POST['OPassword'];
