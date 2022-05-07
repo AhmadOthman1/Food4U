@@ -8,7 +8,8 @@
 }
 /*-------------------------------------------------------------*/
 .register{
-    height: 100vh;
+    min-height: 100vh;
+    height: 100%;
     width: 100%;
     background: radial-gradient(#26E07F, #0E6E3C);
     position: relative;

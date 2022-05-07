@@ -102,17 +102,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             $imgContent = addslashes(file_get_contents($image));
                             $image2 = $_FILES['pimager']['tmp_name'];
                             $imgContent2 = addslashes(file_get_contents($image2));
-                            $qrystr = "INSERT INTO user (name ,Email,password,level,profileimage)" . "VALUES('$resName','$email','".sha1($password)."','$level','$imgContent2')";
+                            $qrystr = "INSERT INTO user (name ,Email,password,level,profileimage)" . "VALUES('$resName','$email','".sha1($password)."','W','$imgContent2')";
                             $result = mysqli_query($conn, $qrystr);
+                            $qr="INSERT INTO `restaurantwating`( `Email2`,`coverImage2`, `facebookLink2`, `city2`, `address2`, `phone2`) VALUES ('$email','$imgContent','$fblink','$city','$address','$phone')";
+                            $result = mysqli_query($conn, $qr);
 
-                            $qrystr1 = "INSERT INTO restaurant(Email,description,facebookLink,InstagramLink,siteLink,coverImage)" . "VALUES('$email','','$fblink','','','$imgContent')";
-                            $result = mysqli_query($conn, $qrystr1);
 
-                            $qrystr2 = "INSERT INTO restaurantlocation(Email,city,address)" . "VALUES('$email','$city','$address')";
-                            $result = mysqli_query($conn, $qrystr2);
+                            #$qrystr1 = "INSERT INTO restaurant(Email,description,facebookLink,InstagramLink,siteLink,coverImage)" . "VALUES('$email','','$fblink','','','$imgContent')";
+                            #$result = mysqli_query($conn, $qrystr1);
 
-                            $qrystr3 = "INSERT INTO restaurantphone(Email,phone)" . "VALUES('$email','$phone')";
-                            $result = mysqli_query($conn, $qrystr3);
+                            #$qrystr2 = "INSERT INTO restaurantlocation(Email,city,address)" . "VALUES('$email','$city','$address')";
+                            #$result = mysqli_query($conn, $qrystr2);
+
+                            #$qrystr3 = "INSERT INTO restaurantphone(Email,phone)" . "VALUES('$email','$phone')";
+                            #$result = mysqli_query($conn, $qrystr3);
                             mysqli_close($conn);
                             header('location:login.php');
 
@@ -299,10 +302,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 
-<body>
+<body style="height: 100%;min-height: 100vh">
 <?php echo $disableSmallDiv; ?>
-<div class="register ">
-    <div class="row register-left h-auto d-inline-block" >
+<div class="register " >
+    <div class="row register-left h-100 d-inline-block" >
         <div class="col-md-12 ">
             <div class="top_link"><a href="Index.php"><img src="icons/left.svg" alt=""></a></div>
             <ul class="nav nav-tabs nav-justified" id="myTab" role="tablist">
@@ -388,6 +391,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                             </div>
                             <input type="submit" id="newC" name="newC" value="Register" class="buttonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
+                            <p style="max-width:600px;word-break: break-all; white-space: normal;color: gray">you have to wait for manager aprovement to log in using your resturant Email</p>
                         </div>
                     </form>
                 </div>

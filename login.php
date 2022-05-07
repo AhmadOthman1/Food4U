@@ -39,6 +39,9 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
                         if($row->level == 'R'){
                             header('location:restaurant.php');
                         }
+                        if($row->level == 'M'){
+                            header('location:Manager.php');
+                        }
                         $errormsg = "";
                         $disableSmallDiv = "";
                     } else {
