@@ -94,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <section class="nd-flex justify-content-end custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
         <div class="container-fluid">
-            <a class="navbar-brand" href="Restaurant.php">
+            <a class="navbar-brand" href="CHome.php">
                 Food<span style="color: #26e07f;font-size: 30px">4</span>U
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainMenu" aria-controls="mainMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <li class="nav-item"><form  method="GET" action="CSearch.php"><input class="SearchTextField" name="searchTextFeild" type="text" placeholder="Search For Restaurants"><input  type="submit" class="SearchButton" value=""></form></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
-                    <li class="nav-item"><a href="" class="nav-link ">Home</a></li>
+                    <li class="nav-item"><a href="CHome.php" class="nav-link ">Home</a></li>
                     <li class="nav-item"><a href="CCart.php" class="nav-link ">My cart</a></li>
                     <li class="nav-item"><a href="CProfile.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>

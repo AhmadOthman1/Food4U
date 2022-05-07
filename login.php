@@ -34,7 +34,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
                         $_SESSION['Email'] = $row->Email;
                         $_SESSION['level'] = $row->level;
                         if($row->level == 'C'){
-                            header('location:CProfile.php');
+                            header('location:CHome.php');
                         }
                         if($row->level == 'R'){
                             header('location:restaurant.php');

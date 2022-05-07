@@ -7,13 +7,7 @@ if(isset($_SESSION['validmem'])){
     else{
         header('location:Index.php');
     }
-    $ss=$_GET['searchTextFeild'];
-    if(!empty($ss)){
 
-    }
-    else{
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
-    }
 }
 else{
     header('location:Index.php');
@@ -138,13 +132,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="col-lg-12 p-0">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyOrdersTab" role="tabpanel" aria-labelledby="MyOrders-tab">
+                    <h3>Restaurants from Your area</h3>
                     <div class="row profile-form">
-                        <div class="col-md-12" style="border: gray solid 2px; height: 100vh">
+                        <div class="col-md-12" style="border-top: gray solid 2px;border-bottom:gray solid 2px; min-height: 100px;height: fit-content;">
 
                                 <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
                                 try{
                                     $conn = new mysqli('localhost','root','','food4u');
-                                    $qrstr="SELECT `user`.`name` as `userName`,`user`.`Email` as `userEmail`, `profileImage`, `description` FROM `user`,`restaurant` WHERE `user`.`Email`=`restaurant`.`Email` and (`user`.`name` LIKE '%".$_GET['searchTextFeild']."%' or `restaurant`.`description` LIKE '%".$_GET['searchTextFeild']."%' )";
+                                    $qrstr="SELECT DISTINCT `user`.`name` as `userName`,`user`.`Email` as `userEmail`, `profileImage`, `description`,`city` FROM `user`,`restaurant`,`restaurantlocation` WHERE `user`.`Email`=`restaurant`.`Email` and (`city` LIKE '%".$city."%' )LIMIT 0,5;";
                                     $res=$conn->query($qrstr);
                                     for($i=0;$i<$res->num_rows;$i++) {
                                         $row = $res->fetch_object();
@@ -152,7 +147,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         $CEmail = $row->userEmail;
                                         $RDescription = $row->description;
                                         $CPImage = $row->profileImage;
-                                        echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+                                        echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 5px;">
                                             <tr class="CDiv">
                                             <td style="border-bottom: #26e07f solid 2px">
                                             <div >
@@ -184,6 +179,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 }
                                 ?>
+
+                            </table>
+                        </div>
+                    </div>
+                    <h3>Top Restaurants</h3>
+                    <div class="row profile-form">
+                        <div class="col-md-12" style="border-top: gray solid 2px;border-bottom:gray solid 2px;  min-height: 100px;height: fit-content;">
+
+                            <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
+                            try{
+                                $conn = new mysqli('localhost','root','','food4u');
+                                $qrstr="SELECT DISTINCT `user`.`name` AS `userName`, `user`.`Email` AS `userEmail`, `description`,`profileImage`, AVG(stars) AS avgStars FROM USER, reviews, restaurant WHERE REmail = `user`.`Email` AND `restaurant`.`Email` = REmail GROUP BY `userName`, `userEmail`, `description`LIMIT 0,5;";
+                                $res=$conn->query($qrstr);
+                                for($i=0;$i<$res->num_rows;$i++) {
+                                    $row = $res->fetch_object();
+                                    $CName = $row->userName;
+                                    $CEmail = $row->userEmail;
+                                    $RDescription = $row->description;
+                                    $CPImage = $row->profileImage;
+                                    $CPStars= $row->avgStars;
+                                    echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 5px;">
+                                            <tr class="CDiv">
+                                            <td style="border-bottom: #26e07f solid 2px">
+                                            <div >
+                                                <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
+                                                <div class="CInfo">
+                                                    <form method="GET" action="CRPage.php"><input class="greenUnborderedButton" style="color: black;font-size: 30px;" type="submit" value="'.$CName.'"><input name="CREmail" type="text"style="display: none" value="'.$CEmail.'"></form>
+                                                    <img src="icons/star.png" style="width: 20px;height: 20px;float:left;margin-top: 10px" alt="stars:"><p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPStars.'</p>
+                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$RDescription.'</p>';
+                                    $conn2 = new mysqli('localhost','root','','food4u');
+                                    $qrstr2="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$CEmail."'";
+                                    $res2=$conn2->query($qrstr2);
+                                    for($j=0;$j<$res2->num_rows;$j++) {
+                                        $row2 = $res2->fetch_object();
+                                        $RCity=$row2->city;
+                                        $RAddress=$row2->address;
+                                        echo '<p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$RCity.' - '.$RAddress.'</p>';
+                                    }
+                                    $conn2->close();
+                                    echo '</div>
+                                            </div>
+                                            </td>
+                                            </tr>
+                                            
+                                            ';
+                                    echo '</table></tr>';
+                                }
+                                $conn->close();
+                            }
+                            catch (Exception $ex){
+
+                            }
+                            ?>
 
                             </table>
                         </div>
