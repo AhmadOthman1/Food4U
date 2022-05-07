@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['validmem']=1;
-$_SESSION['Email']='Ahmad@gmail.com';
 if(isset($_SESSION['validmem'])){
     if($_SESSION['validmem']==1){
 
@@ -55,17 +53,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['declineOrder'])) {
         $dSecId=$_POST['MOrderId'];
         $conn = new mysqli('localhost', 'root', '', 'food4u');
-        $qrstr="UPDATE `orders` SET `state`='D' WHERE `id`='".$dSecId."'";
+        $qrstr="DELETE FROM `orders` WHERE `id`='".$dSecId."'";
         $conn->query($qrstr);
         $conn->close();
     }
-    if (isset($_POST['acceptOrder'])) {
-        $dSecId=$_POST['MOrderId'];
-        $conn = new mysqli('localhost', 'root', '', 'food4u');
-        $qrstr="UPDATE `orders` SET `state`='A' WHERE `id`='".$dSecId."'";
-        $conn->query($qrstr);
-        $conn->close();
-    }
+
 }
 
 
@@ -109,13 +101,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </button>
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="nav navbar-nav navbar-center align-items-center">
-                    <li class="nav-item"></li>
+                    <li class="nav-item"><form  method="GET" action="CSearch.php"><input class="SearchTextField" name="searchTextFeild" type="text" placeholder="Search For Restaurants"><input  type="submit" class="SearchButton" value=""></form></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
-                    <li class="nav-item"><a href="RMenu.php" class="nav-link ">Menu</a></li>
-                    <li class="nav-item"><a href="ROrders.php" class="nav-link ">Orders</a></li>
-                    <li class="nav-item"><a href="Rreviews.php" class="nav-link ">Reviews</a></li>
-                    <li class="nav-item"><a href="restaurant.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
+                    <li class="nav-item"><a href="" class="nav-link ">Home</a></li>
+                    <li class="nav-item"><a href="CCart.php" class="nav-link ">My cart</a></li>
+                    <li class="nav-item"><a href="CProfile.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>
                 </ul>
             </div>
@@ -132,6 +123,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
                     <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
+                    <li class=" nav-item"><h3><?php echo $name;?></h3></li>
                     <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyOrders-tab"  data-toggle="tab" href="#MyOrdersTab"  role="tab" aria-controls="MyOrders" aria-selected="true" onclick="window.location=window.location;">My Orders</a></li>
                     <li class=" nav-item" ><a class="nav-link" id="MyAOrders-tab"  data-toggle="tab" href="#MyAOrdersTab" role="tab" aria-controls="MyAOrders" aria-selected="false" onclick="window.location=window.location;">Accepted orders</a></li>
                     <li class=" nav-item" ><a class="nav-link" id="MyDOrders-tab"  data-toggle="tab" href="#MyDOrdersTab" role="tab" aria-controls="MyDOrders" aria-selected="false" onclick="window.location=window.location;">Declined Orders</a></li>
@@ -148,16 +140,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
                                 try{
                                     $conn = new mysqli('localhost','root','','food4u');
-                                    $qrstr="SELECT DISTINCT `REmail`,`restaurant`.`name` as `userName`,`profileImage`  FROM `orders`,`user`,`restaurant`WHERE `CEmail`='".$_SESSION['Email']."' and `restaurant`.`Email`=`REmail` and `user`.`Email`=`restaurant`.`Email` and `state`='W'";
+                                    $qrstr="SELECT DISTINCT `REmail`,`user`.`name` as `userName`,`profileImage`  FROM `orders`,`user`,`restaurant`WHERE `CEmail`='".$_SESSION['Email']."' and `restaurant`.`Email`=`REmail` and `user`.`Email`=`restaurant`.`Email` and `state`='W'";
                                     $res=$conn->query($qrstr);
                                     for($i=0;$i<$res->num_rows;$i++) {
                                         $row = $res->fetch_object();
                                         $CName = $row->userName;
-                                        $CEmail = $row->CEmail;
+                                        $REmail = $row->REmail;
                                         $CPImage = $row->profileImage;
-                                        $CCity = $row->city;
-                                        $CAddress = $row->address;
-                                        $CPhone = $row->phone;
                                         echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                             <tr class="CDiv">
                                             <td style="border-bottom: #26e07f solid 2px">
@@ -165,16 +154,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <h3 class="CName">'.$CName.'</h3>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CEmail.'</p>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
                                             </div>
                                             </td>
                                             </tr>
                                             <tr><table style="width: 100%;border-collapse: separate; border-spacing: 0 10px;margin-top: -20px">
                                             ';
-                                        $qrstr2="SELECT  `orders`.`id` as `orderId`,`mealid`,`image`, `meals`.`name` as `mealName`, `meals`.`price` as `mealPrice`,`orderDate` FROM `orders`,`meals`,`customer` WHERE `CEmail`='".$CEmail."' and `REmail`='".$_SESSION['Email']."' and `customer`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `state`='W'  ORDER BY `orderDate` DESC ;";
+                                        $qrstr2="SELECT  `orders`.`id` as `orderId`,`mealid`,`image`, `meals`.`name` as `mealName`, `meals`.`price` as `mealPrice`,`orderDate` FROM `orders`,`meals`,`customer` WHERE `CEmail`='".$_SESSION['Email']."' and `REmail`='".$REmail."' and `customer`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `state`='W'  ORDER BY `orderDate` DESC ;";
                                         $res2=$conn->query($qrstr2);
                                         for($j=0;$j<$res2->num_rows;$j++) {
                                             $row2 = $res2->fetch_object();
@@ -204,7 +190,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <form method="POST" action="'.$_SERVER["PHP_SELF"].'">
                                                         <input type="text" name="MOrderId" value="'.$MOrderId.'" style="display: none">
                                                         <input name="declineOrder" class="greenUnborderedButton" type="submit" value="X" >
-                                                        <input name="acceptOrder" class="greenUnborderedButton" type="submit" value="✓" >
                                                     </form>
                                                 
                                                 </div>
@@ -231,16 +216,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
                             try{
                                 $conn = new mysqli('localhost','root','','food4u');
-                                $qrstr="SELECT DISTINCT `CEmail`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`  FROM `orders`,`user`,`customer`WHERE `REmail`='".$_SESSION['Email']."' and `user`.`Email`=`CEmail` and `user`.`Email`=`customer`.`Email` and `state`='A'";
+                                $qrstr="SELECT DISTINCT `REmail`,`user`.`name` as `userName`,`profileImage`  FROM `orders`,`user`,`restaurant`WHERE `CEmail`='".$_SESSION['Email']."' and `restaurant`.`Email`=`REmail` and `user`.`Email`=`restaurant`.`Email` and `state`='A'";
                                 $res=$conn->query($qrstr);
                                 for($i=0;$i<$res->num_rows;$i++) {
                                     $row = $res->fetch_object();
                                     $CName = $row->userName;
-                                    $CEmail = $row->CEmail;
+                                    $REmail = $row->REmail;
                                     $CPImage = $row->profileImage;
-                                    $CCity = $row->city;
-                                    $CAddress = $row->address;
-                                    $CPhone = $row->phone;
                                     echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                             <tr class="CDiv">
                                             <td style="border-bottom: #26e07f solid 2px">
@@ -248,16 +230,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <h3 class="CName">'.$CName.'</h3>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CEmail.'</p>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
                                             </div>
                                             </td>
                                             </tr>
                                             <tr><table style="width: 100%;border-collapse: separate; border-spacing: 0 10px;margin-top: -20px">
                                             ';
-                                    $qrstr2="SELECT  `orders`.`id` as `orderId`,`mealid`,`image`, `meals`.`name` as `mealName`, `meals`.`price` as `mealPrice`,`orderDate` FROM `orders`,`meals`,`customer` WHERE `CEmail`='".$CEmail."' and `REmail`='".$_SESSION['Email']."' and `customer`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `state`='A'  ORDER BY `orderDate` DESC ;";
+                                    $qrstr2="SELECT  `orders`.`id` as `orderId`,`mealid`,`image`, `meals`.`name` as `mealName`, `meals`.`price` as `mealPrice`,`orderDate` FROM `orders`,`meals`,`customer` WHERE `CEmail`='".$_SESSION['Email']."' and `REmail`='".$REmail."' and `customer`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `state`='A'  ORDER BY `orderDate` DESC ;";
                                     $res2=$conn->query($qrstr2);
                                     for($j=0;$j<$res2->num_rows;$j++) {
                                         $row2 = $res2->fetch_object();
@@ -284,6 +263,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <h1>₪'.$MPrice.'</h1>
                                                 </div>
                                                 <div>
+                                                <form method="POST" action="'.$_SERVER["PHP_SELF"].'">
+                                                        <input type="text" name="MOrderId" value="'.$MOrderId.'" style="display: none">
+                                                    </form>
                                                 
                                                 </div>
                                             </td>
@@ -298,6 +280,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 echo "<p>".$ex->getTraceAsString()."</p>";
                             }
                             ?>
+
 
                             </table>
 
@@ -310,16 +293,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
                             try{
                                 $conn = new mysqli('localhost','root','','food4u');
-                                $qrstr="SELECT DISTINCT `CEmail`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`  FROM `orders`,`user`,`customer`WHERE `REmail`='".$_SESSION['Email']."' and `user`.`Email`=`CEmail` and `user`.`Email`=`customer`.`Email` and `state`='D'";
+                                $qrstr="SELECT DISTINCT `REmail`,`user`.`name` as `userName`,`profileImage`  FROM `orders`,`user`,`restaurant`WHERE `CEmail`='".$_SESSION['Email']."' and `restaurant`.`Email`=`REmail` and `user`.`Email`=`restaurant`.`Email` and `state`='D'";
                                 $res=$conn->query($qrstr);
                                 for($i=0;$i<$res->num_rows;$i++) {
                                     $row = $res->fetch_object();
                                     $CName = $row->userName;
-                                    $CEmail = $row->CEmail;
+                                    $REmail = $row->REmail;
                                     $CPImage = $row->profileImage;
-                                    $CCity = $row->city;
-                                    $CAddress = $row->address;
-                                    $CPhone = $row->phone;
                                     echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                             <tr class="CDiv">
                                             <td style="border-bottom: #26e07f solid 2px">
@@ -327,16 +307,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <h3 class="CName">'.$CName.'</h3>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CEmail.'</p>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
                                             </div>
                                             </td>
                                             </tr>
                                             <tr><table style="width: 100%;border-collapse: separate; border-spacing: 0 10px;margin-top: -20px">
                                             ';
-                                    $qrstr2="SELECT  `orders`.`id` as `orderId`,`mealid`,`image`, `meals`.`name` as `mealName`, `meals`.`price` as `mealPrice`,`orderDate` FROM `orders`,`meals`,`customer` WHERE `CEmail`='".$CEmail."' and `REmail`='".$_SESSION['Email']."' and `customer`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `state`='D'  ORDER BY `orderDate` DESC ;";
+                                    $qrstr2="SELECT  `orders`.`id` as `orderId`,`mealid`,`image`, `meals`.`name` as `mealName`, `meals`.`price` as `mealPrice`,`orderDate` FROM `orders`,`meals`,`customer` WHERE `CEmail`='".$_SESSION['Email']."' and `REmail`='".$REmail."' and `customer`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `state`='D'  ORDER BY `orderDate` DESC ;";
                                     $res2=$conn->query($qrstr2);
                                     for($j=0;$j<$res2->num_rows;$j++) {
                                         $row2 = $res2->fetch_object();
@@ -363,7 +340,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                     <h1>₪'.$MPrice.'</h1>
                                                 </div>
                                                 <div>
-                                                
+                                                <form method="POST" action="'.$_SERVER["PHP_SELF"].'">
+                                                        <input type="text" name="MOrderId" value="'.$MOrderId.'" style="display: none">
+                                                    </form>
                                                 
                                                 </div>
                                             </td>
@@ -378,6 +357,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 echo "<p>".$ex->getTraceAsString()."</p>";
                             }
                             ?>
+
 
                             </table>
                         </div>

@@ -428,3 +428,25 @@ table{
     margin: 10px;
     color: gray;
 }
+.coverImage{
+    width: 100%;
+    background-size: cover;
+    height: 300px;
+    border-bottom: #26e07f solid 2px;
+    box-shadow: 0 0 20px #26e07f;
+}
+.revButton{
+    height: 50px;
+    width: 50px;
+    background-image: url("../icons/rev.png");
+    background-size: 40px 40px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    border: none;
+}
+.revButton:hover{
+    outline: none;
+    background-image: url("../icons/revG.png");
+}
+
+

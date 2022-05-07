@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['validmem']=1;
-$_SESSION['Email']='Ahmad@gmail.com';
 if(isset($_SESSION['validmem'])){
     if($_SESSION['validmem']==1){
 
@@ -19,6 +17,8 @@ $phone="";
 $gender="";
 $city="";
 $address="";
+$disableSmallDiv="";
+$errormsg="";
 try{
     $conn = new mysqli('localhost','root','','food4u');
     $qrstr="SELECT `name`, `profileImage`, `phone`, `gender`, `city`, `address` FROM `user`,`customer` WHERE  `user`.`Email`=`customer`.`Email` and `user`.`Email`='".$_SESSION['Email']."'";
@@ -30,7 +30,7 @@ try{
     $gender=$row->gender;
     $city=$row->city;
     $address=$row->address;
-    $conn->close();
+    //  $conn->close();
     $MSelect="";
     $FSelect="";
     if($gender == 'M'){$MSelect="selected";$FSelect="";}
@@ -52,10 +52,217 @@ catch (Exception $ex){
     echo "<p>".$ex->getTraceAsString()."</p>";
 }
 
+$_SESSION['validmem']=1;
+$_SESSION['Email']='Ahmad@gmail.com';
+if(isset($_SESSION['validmem'])){
+    if($_SESSION['validmem']==1){
+    }
+    else{
+        header('location:Index.php');
+    }
+}
+else{
+    header('location:Index.php');
+}
+if (isset($_POST['errorOkButton'])) {
+    $disableSmallDiv="";
+    $errormsg="";
+}
+if(isset($_POST['savec'])) {
+    $namec = $_POST['namec'];
+    $emailc= $_POST['emailc'];
+    $genderc = $_POST['genderc'];
+    $phonec = $_POST['phonec'];
+    $addressc = $_POST['addressc'];
+    //  $profileimage = $_POST['profimage'];
+    $cityc = $_POST['cityc'];
+    $disableSmallDiv="";
+    $errormsg="";
+    if (!empty($namec)&&!empty($emailc)&&!empty($genderc)&&!empty($phonec)&&!empty($addressc)&&!empty($cityc)) {
+
+        //$conn0 = new mysqli('localhost', 'root', '', 'food4u');
+
+        //   $qrstr0="SELECT `Email` FROM `user`,`customer` WHERE `user`.`Email`=`customer`.`Email` and `user`.`Email`='".$emailc."'";
+        $qrstr0="SELECT * FROM `user`,`customer` WHERE  `user`.`Email`=`customer`.`Email` and `user`.`Email`='".$emailc."'";
+        $res =  $conn->query($qrstr0);
+
+        for ($i = 0; $i < $res->num_rows; $i++) {
+            $row = $res->fetch_object();
+
+            if ($row->Email == $emailc && $_SESSION['Email'] != $emailc)
+            {
+                $errormsg="Please Enater Valid Email";
+                $disableSmallDiv="<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=".$_SERVER["PHP_SELF"].">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> " ;
+
+            }
+            else {
+
+            }
+
+        }
+        $errormsg="";
+        $disableSmallDiv="";
+        if(isset($_FILES['profimgc']['name']) && !empty($_FILES['profimgc']['name'])) {
+            $fileName = $_FILES['profimgc']['name'];
+            $fileType = pathinfo($fileName, PATHINFO_EXTENSION);
+            $allowTypes = array('jpg','png','jpeg');
+            if(in_array($fileType, $allowTypes) && $_FILES['profimgc']['size'] < 200000){
+                $conn = new mysqli('localhost', 'root', '', 'food4u');
+                $image = $_FILES['profimgc']['tmp_name'];
+                $imgContent = addslashes(file_get_contents($image));
+                $qrstr = "UPDATE user SET `profileImage`='".$imgContent."' WHERE `Email`='" . $_SESSION['Email'] . "'";
+                $conn->query($qrstr);
+                if ($res->num_rows == 0) {
+                    $query = "UPDATE user SET name ='" . $namec . "' ,Email ='" . $emailc ."'WHERE `Email`='" . $_SESSION['Email'] . "'";
+                    $query1= "UPDATE customer SET Email ='" . $emailc ."',phone ='" . $phonec ."',gender ='" . $genderc ."',Email ='" . $emailc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
+                    $conn->query($query);
+                    $conn->query($query1);
+                    header("Refresh:0");
+
+                }else{
+                    $query = "UPDATE user SET name ='" . $namec . "' WHERE `Email`='" . $_SESSION['Email'] . "'";
+                    $query1= "UPDATE customer SET phone ='" . $phonec ."',gender ='" . $genderc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
+                    $conn->query($query);
+                    $conn->query($query1);
+                    header("Refresh:0");
+                }
+            }
+            else{
+                $errormsg="Please Enater Valid Image (Less Than 200KB)";
+                $disableSmallDiv="<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=".$_SERVER["PHP_SELF"].">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> " ;
+            }
+        }
+        else{
+        if ($res->num_rows == 0) {
+            $query = "UPDATE user SET name ='" . $namec . "' ,Email ='" . $emailc ."'WHERE `Email`='" . $_SESSION['Email'] . "'";
+            $query1= "UPDATE customer SET Email ='" . $emailc ."',phone ='" . $phonec ."',gender ='" . $genderc ."',Email ='" . $emailc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
+            $conn->query($query);
+            $conn->query($query1);
+            header("Refresh:0");
+
+        }else{
+            $query = "UPDATE user SET name ='" . $namec . "' WHERE `Email`='" . $_SESSION['Email'] . "'";
+            $query1= "UPDATE customer SET phone ='" . $phonec ."',gender ='" . $genderc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
+            $conn->query($query);
+            $conn->query($query1);
+            header("Refresh:0");
+        }
+        }
 
 
+
+    }
+}
+$errormsg="";
+$disableSmallDiv="";
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+if(isset($_POST['change'])) {
+
+    $opass = $_POST['OPassword'];
+    $npass = $_POST['NPassword'];
+    $cpass = $_POST['CPassword'];
+    $errormsg = "";
+    $disableSmallDiv = "";
+
+    $qrstr0 = "SELECT * FROM `user` WHERE `password`='" . sha1($opass) . "' and `Email`='" . $_SESSION['Email'] . "'";
+    $res = $conn->query($qrstr0);
+    $row = $res->fetch_object();
+    $dbPass = $row->password;
+    if (isset($opass) &&isset($dbPass) && $dbPass == sha1($opass)) {
+        if ($npass == $cpass) {
+            $errormsg = "";
+            $disableSmallDiv = "";
+            $qrstr0 = "UPDATE user SET password ='" . sha1($npass) . "' WHERE `Email`='" . $_SESSION['Email'] . "'";
+            $res = $conn->query($qrstr0);
+        } else {
+            $errormsg = "New Passwords Doesnt Match!!";
+            $disableSmallDiv = "<div class='errorMenuItem ' >
+<div class='errorMenuItem2 container h-100' >
+    <div class='row align-items-center h-100' >
+        <div class='col-md-2' ></div>
+
+        <div class='col-md-8 mx-auto'>
+            <div class='errorMenuItemContent' style='align: center'>
+                <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                    <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                        <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                        <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class='col-md-2' ></div>
+    </div>
+</div>
+</div> ";
+        }
+
+    } else {
+        $errormsg = "Your Old Password Is Wrong !!";
+        $disableSmallDiv = "<div class='errorMenuItem ' >
+<div class='errorMenuItem2 container h-100' >
+    <div class='row align-items-center h-100' >
+        <div class='col-md-2' ></div>
+
+        <div class='col-md-8 mx-auto'>
+            <div class='errorMenuItemContent' style='align: center'>
+                <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                    <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                        <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                        <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class='col-md-2' ></div>
+    </div>
+</div>
+</div> ";
+    }
+
+
+}
+
+
+}
 ?>
-
+<?php echo $disableSmallDiv; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -94,12 +301,11 @@ catch (Exception $ex){
             </button>
             <div class="collapse navbar-collapse" id="mainMenu">
                 <ul class="nav navbar-nav navbar-center align-items-center">
-                    <li class="nav-item"><form action=""><input class="SearchTextField" type="text" placeholder="Search"><input type="submit" class="SearchButton" value=""></form></li>
+                    <li class="nav-item"><form  method="GET" action="CSearch.php"><input class="SearchTextField" name="searchTextFeild" type="text" placeholder="Search For Restaurants"><input  type="submit" class="SearchButton" value=""></form></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right text-uppercase align-items-center">
                     <li class="nav-item"><a href="" class="nav-link ">Home</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">My cart</a></li>
-                    <li class="nav-item"><a href="#ContactUsSection" class="nav-link ">Reviews</a></li>
+                    <li class="nav-item"><a href="CCart.php" class="nav-link ">My cart</a></li>
                     <li class="nav-item"><a href="CProfile.php" class="  nav-link "><?php echo '<img class="navImage" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?><span id="resName" style="margin-left: 5px; font-size: 12px;font-weight: 600"><?php echo $name?></span></a></li>
                     <li class="nav-item"><a href="logOut.php" class="logoutButton nav-link "></a></li>
                 </ul>
@@ -161,31 +367,31 @@ catch (Exception $ex){
                 <div class="tab-pane fade show" id="EditMyInformationTab" role="tabpanel" aria-labelledby="EditMyInformation-tab">
                     <div class="row editProfile-form">
                         <div class="col-md-12">
-                            <form action="">
+                            <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"enctype='multipart/form-data'>
                                 <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                     <tr>
                                         <td><label for="Name">Name:</label></td>
-                                        <td><input id="Name" type="text" placeholder="Name *" value="<?php echo $name?>" /></td>
+                                        <td><input id="Name" name="namec" type="text" placeholder="Name *" value="<?php echo $name?>" /></td>
                                     </tr>
                                     <tr>
                                         <td><label for="Email">Email:</label></td>
-                                        <td><input id="Email" type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>" /></td>
+                                        <td><input id="Email"  name="emailc"  type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>" /></td>
                                     </tr>
                                     <tr>
                                         <td><label for="Gender">Gender:</label></td>
-                                        <td><select  class="selectInput" >
+                                        <td><select  name="genderc" class="selectInput" >
                                                 <option <?php echo $MSelect ?> value ="M">Male</option>
                                                 <option <?php echo $FSelect ?> value="F">Female</option>
                                             </select></td>
                                     </tr>
                                     <tr>
                                         <td><label for="Phone">Phone:</label></td>
-                                        <td><input id="Phone" type="text" placeholder="Phone *" value="<?php echo $phone?>" /></td>
+                                        <td><input id="Phone" name="phonec"  type="text" placeholder="Phone *" value="<?php echo $phone?>" /></td>
                                     </tr>
                                     <tr>
                                         <td><label for="City">City:</label></td>
                                         <td>
-                                            <select  class="selectInput" >
+                                            <select  name="cityc"  class="selectInput" >
                                                 <option <?php echo $j ?> value="Jenin">Jenin</option>
                                                 <option <?php echo $N ?> value="Nablus">Nablus</option>
                                                 <option <?php echo $Tu ?> value="Tubas">Tubas</option>
@@ -202,16 +408,16 @@ catch (Exception $ex){
                                     </tr>
                                     <tr>
                                         <td><label for="Address">Address:</label></td>
-                                        <td><input id="Address" type="text" placeholder="Address *" value="<?php echo $address?>" /></td>
+                                        <td><input id="Address" name="addressc" type="text" placeholder="Address *" value="<?php echo $address?>" /></td>
                                     </tr>
                                     <tr>
                                         <td><label >Profile Image:</label></td>
-                                        <td><input type="file" accept=".jpg,.jpeg,.png"><h6 style='color: gray'>image must be less than 200KB</h6></td>
+                                        <td><input type="file" name="profimgc" id="profimgc" accept=".jpg,.jpeg,.png"><h6 style='color: gray'>image must be less than 200KB</h6></td>
                                     </tr>
 
                                 </table>
 
-                            <input type="submit" value="Save" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
+                                <input type="submit" id="savec" name="savec" value="Save" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
                             </form>
                         </div>
                     </div>
@@ -219,23 +425,23 @@ catch (Exception $ex){
                 <div class="tab-pane fade show" id="ChangePasswordTab" role="tabpanel" aria-labelledby="ChangePassword-tab">
                     <div class="row editProfile-form">
                         <div class="col-md-12">
-                            <form action="">
-                            <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
-                                <tr>
-                                    <td><label for="OPassword">Old Password: </label></td>
-                                    <td><input id="OPassword" type="password" placeholder="Old Password *" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="NPassword">New Password:</label></td>
-                                    <td><input id="NPassword" type="password" placeholder="New Password *" /></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="CPassword">Confirm the password:</label></td>
-                                    <td><input type="password" id="CPassword" placeholder="Confirm the password *" ></td>
-                                </tr>
+                            <form method="post" action="<?php echo $_SERVER['PHP_SELF'];?>"enctype='multipart/form-data'>
+                                <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+                                    <tr>
+                                        <td><label for="OPassword">Old Password: </label></td>
+                                        <td><input id="OPassword" name="OPassword" type="password" placeholder="Old Password *" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="NPassword">New Password:</label></td>
+                                        <td><input id="NPassword" name="NPassword"type="password" placeholder="New Password *" /></td>
+                                    </tr>
+                                    <tr>
+                                        <td><label for="CPassword">Confirm the password:</label></td>
+                                        <td><input type="password" id="CPassword"name="CPassword"  placeholder="Confirm the password *" ></td>
+                                    </tr>
 
-                            </table>
-                            <input type="submit" value="Change" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
+                                </table>
+                                <input type="submit" name="change" id="change" value="Change" class="blackSquaredButtonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
                             </form>
                         </div>
                     </div>

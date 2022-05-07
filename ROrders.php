@@ -177,7 +177,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <h3 class="CName">'.$CName.'</h3>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CEmail.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
@@ -260,7 +259,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <h3 class="CName">'.$CName.'</h3>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CEmail.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
@@ -339,7 +337,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <h3 class="CName">'.$CName.'</h3>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CEmail.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
