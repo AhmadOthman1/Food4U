@@ -2,7 +2,7 @@
 <?php
 session_start();
 if(isset($_SESSION['validmem'])){
-    if($_SESSION['validmem']==1){
+    if($_SESSION['validmem']==1&&$_SESSION['level']=='C'){
 
     }
     else{

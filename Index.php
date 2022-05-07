@@ -119,7 +119,7 @@ session_destroy();
             </div>
             <div class="col-lg-6">
                 <div class="customerReview" data-aos="fade-left" data-aos-duration="500" data-aos-delay="100" data-aos-easing="ease-in-out">
-                        <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
+                        <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>This site is very wonderful, I am very interested in following the offers on it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
                         <div>
                             <img src="images/person2.jpg" alt="Person">
                             <h5>Moahmmad Nassar</h5>
@@ -131,7 +131,7 @@ session_destroy();
         <div class="row">
             <div class="col-lg-6">
                 <div class="customerReview" data-aos="fade-right" data-aos-duration="500" data-aos-delay="200" data-aos-easing="ease-in-out">
-                    <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
+                    <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>One of the best food ordering sites in Palestine, I use it every day<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
                     <div>
                         <img src="images/person3.jpg" alt="Person">
                         <h5>Ahmad Khudear</h5>
@@ -140,7 +140,7 @@ session_destroy();
             </div>
             <div class="col-lg-6">
                 <div class="customerReview" data-aos="fade-left" data-aos-duration="500" data-aos-delay="200" data-aos-easing="ease-in-out">
-                    <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>I get a lot of discounts through this site, it contains many meals and restaurants that I like to order from.<br>I recommend everyone to use it<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
+                    <p><span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❝</span>nice<span data-aos="zoom-out" data-aos-duration="500" data-aos-delay="500">❞</span></p>
                     <div>
                         <img src="images/person4.jpg" alt="Person">
                         <h5>Rami Jarrar</h5>
@@ -188,7 +188,7 @@ session_destroy();
             </div>
             <div class="col-md-5">
                 <div class="teamMember" data-aos="fade-up" data-aos-duration="1300" data-aos-delay="400">
-                    <img src="images/AhmadOthman.jpg" alt="AhmadOthman">
+                    <img src="images/Shareef.jpg" alt="AhmadOthman">
                     <div class="memSocial">
                         <button href="" class="facebookIcon"></button>
                         <button href="" class="instagramIcon"></button>
@@ -196,7 +196,7 @@ session_destroy();
                         <button href="" class="siteIcon"></button>
                     </div>
                     <div class="memInfo">
-                        <h3>Ahmad Othman</h3>
+                        <h3>Shareef Salahat</h3>
                         <h7>Computer Engineering</h7>
                     </div>
                 </div>
