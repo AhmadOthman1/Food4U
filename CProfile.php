@@ -52,18 +52,7 @@ catch (Exception $ex){
     echo "<p>".$ex->getTraceAsString()."</p>";
 }
 
-$_SESSION['validmem']=1;
-$_SESSION['Email']='Ahmad@gmail.com';
-if(isset($_SESSION['validmem'])){
-    if($_SESSION['validmem']==1){
-    }
-    else{
-        header('location:Index.php');
-    }
-}
-else{
-    header('location:Index.php');
-}
+
 if (isset($_POST['errorOkButton'])) {
     $disableSmallDiv="";
     $errormsg="";
@@ -78,14 +67,14 @@ if(isset($_POST['savec'])) {
     $cityc = $_POST['cityc'];
     $disableSmallDiv="";
     $errormsg="";
-    if (!empty($namec)&&!empty($emailc)&&!empty($genderc)&&!empty($phonec)&&!empty($addressc)&&!empty($cityc)) {
+    if (!empty($namec)&&!empty($emailc)&&!empty($genderc)&&!empty($phonec)&&!empty($addressc)&&!empty($cityc)&&strpos($emailc, '@')&&strpos($emailc, '.')&&!strpos($emailc, ' ')) {
 
         //$conn0 = new mysqli('localhost', 'root', '', 'food4u');
 
         //   $qrstr0="SELECT `Email` FROM `user`,`customer` WHERE `user`.`Email`=`customer`.`Email` and `user`.`Email`='".$emailc."'";
         $qrstr0="SELECT * FROM `user`,`customer` WHERE  `user`.`Email`=`customer`.`Email` and `user`.`Email`='".$emailc."'";
         $res =  $conn->query($qrstr0);
-
+        $e = true;
         for ($i = 0; $i < $res->num_rows; $i++) {
             $row = $res->fetch_object();
 
@@ -111,13 +100,14 @@ if(isset($_POST['savec'])) {
         </div>
     </div>
 </div> " ;
-
+                $e = false;
             }
             else {
 
             }
 
         }
+        if($e){
         $errormsg="";
         $disableSmallDiv="";
         if(isset($_FILES['profimgc']['name']) && !empty($_FILES['profimgc']['name'])) {
@@ -131,10 +121,12 @@ if(isset($_POST['savec'])) {
                 $qrstr = "UPDATE user SET `profileImage`='".$imgContent."' WHERE `Email`='" . $_SESSION['Email'] . "'";
                 $conn->query($qrstr);
                 if ($res->num_rows == 0) {
+
                     $query = "UPDATE user SET name ='" . $namec . "' ,Email ='" . $emailc ."'WHERE `Email`='" . $_SESSION['Email'] . "'";
                     $query1= "UPDATE customer SET Email ='" . $emailc ."',phone ='" . $phonec ."',gender ='" . $genderc ."',Email ='" . $emailc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
                     $conn->query($query);
                     $conn->query($query1);
+                    $_SESSION['Email']=$emailc;
                     header("Refresh:0");
 
                 }else{
@@ -174,6 +166,7 @@ if(isset($_POST['savec'])) {
             $query1= "UPDATE customer SET Email ='" . $emailc ."',phone ='" . $phonec ."',gender ='" . $genderc ."',Email ='" . $emailc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
             $conn->query($query);
             $conn->query($query1);
+            $_SESSION['Email']=$emailc;
             header("Refresh:0");
 
         }else{
@@ -181,11 +174,12 @@ if(isset($_POST['savec'])) {
             $query1= "UPDATE customer SET phone ='" . $phonec ."',gender ='" . $genderc ."',city ='" . $cityc ."',address ='" . $addressc ."' WHERE `Email`='" . $_SESSION['Email'] . "'";
             $conn->query($query);
             $conn->query($query1);
+
             header("Refresh:0");
         }
         }
 
-
+}
 
     }
 }
@@ -206,10 +200,34 @@ if(isset($_POST['change'])) {
     $dbPass = $row->password;
     if (isset($opass) &&isset($dbPass) && $dbPass == sha1($opass)) {
         if ($npass == $cpass) {
-            $errormsg = "";
-            $disableSmallDiv = "";
-            $qrstr0 = "UPDATE user SET password ='" . sha1($npass) . "' WHERE `Email`='" . $_SESSION['Email'] . "'";
-            $res = $conn->query($qrstr0);
+            if(strlen($npass)>=6) {
+                $errormsg = "";
+                $disableSmallDiv = "";
+                $qrstr0 = "UPDATE user SET password ='" . sha1($npass) . "' WHERE `Email`='" . $_SESSION['Email'] . "'";
+                $res = $conn->query($qrstr0);
+            }
+            else{
+                $errormsg = "New Password is Less than 6 Digits";
+                $disableSmallDiv = "<div class='errorMenuItem ' >
+<div class='errorMenuItem2 container h-100' >
+    <div class='row align-items-center h-100' >
+        <div class='col-md-2' ></div>
+
+        <div class='col-md-8 mx-auto'>
+            <div class='errorMenuItemContent' style='align: center'>
+                <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                    <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                        <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                        <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        <div class='col-md-2' ></div>
+    </div>
+</div>
+</div> ";
+            }
         } else {
             $errormsg = "New Passwords Doesnt Match!!";
             $disableSmallDiv = "<div class='errorMenuItem ' >
@@ -262,7 +280,7 @@ if(isset($_POST['change'])) {
 
 }
 ?>
-<?php echo $disableSmallDiv; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -288,7 +306,8 @@ if(isset($_POST['change'])) {
         });
     </script>
 </head>
-<body>
+<body style="overflow: hidden">
+<?php echo $disableSmallDiv; ?>
 <!-- MENU -->
 <section class="nd-flex justify-content-end avbar custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
@@ -317,7 +336,7 @@ if(isset($_POST['change'])) {
 </section>
 <div class="mainPage">
     <div class="row">
-        <div class="col-lg-3 p-0 justify-content-center">
+        <div class="col-lg-3 p-0 justify-content-center" >
 
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
@@ -329,7 +348,7 @@ if(isset($_POST['change'])) {
 
             </div>
         </div>
-        <div class="col-lg-9 p-0">
+        <div class="col-lg-9 p-0" style="background-color: #F9F9F9">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyProfileTab" role="tabpanel" aria-labelledby="MyProfile-tab">
                     <div class="row profile-form">

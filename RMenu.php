@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['validmem']=1;
-$_SESSION['Email']='a@gmail.com';
 if(isset($_SESSION['validmem'])){
     if($_SESSION['validmem']==1){
 
@@ -529,6 +527,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!-- MENU -->
 <?php echo $disableEditItemDiv; ?>
 <?php echo $disableSmallDiv; ?>
+<body style="overflow:hidden;">
 <section class="nd-flex justify-content-end custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
         <div class="container-fluid">
@@ -574,7 +573,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </div>
         </div>
-        <div class="col-lg-9 p-0">
+        <div class="col-lg-9 p-0"style="background-color: #F9F9F9">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyMenuTab" role="tabpanel" aria-labelledby="MyMenu-tab">
                     <div class="row profile-form">

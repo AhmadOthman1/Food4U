@@ -1,7 +1,5 @@
 <?php
 session_start();
-$_SESSION['validmem']=1;
-$_SESSION['Email']='a@gmail.com';
 if(isset($_SESSION['validmem'])){
     if($_SESSION['validmem']==1){
 
@@ -74,7 +72,7 @@ catch (Exception $ex){
     </script>
 </head>
 <!-- MENU -->
-
+<body style="overflow: hidden">
 <section class="nd-flex justify-content-end custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
         <div class="container-fluid">
@@ -120,7 +118,7 @@ catch (Exception $ex){
 
             </div>
         </div>
-        <div class="col-lg-9 p-0">
+        <div class="col-lg-9 p-0"style="background-color: #F9F9F9">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyReviewsTab" role="tabpanel" aria-labelledby="MyReviews-tab">
                     <div class="row profile-form">
@@ -130,7 +128,7 @@ catch (Exception $ex){
                                     <?php
                                     try{
                                         $conn = new mysqli('localhost','root','','food4u');
-                                        $qrstr2="SELECT  `name`,`profileImage`, `stars`, `comment` FROM `reviews`,`user` WHERE `REmail`='".$_SESSION['Email']."' and user.Email=reviews.CEmail";
+                                        $qrstr2="SELECT  `name`,`profileImage`, `stars`, `comment` FROM `reviews`,`user` WHERE `REmail`='".$_SESSION['Email']."' and user.Email=reviews.CEmail order by `id` desc";
                                         $res2=$conn->query($qrstr2);
                                             for($j=0;$j<$res2->num_rows;$j++) {
                                                 $row2 = $res2->fetch_object();

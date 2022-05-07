@@ -101,6 +101,8 @@ html, body {
     height: 300px;
     border-bottom: #26e07f solid 2px;
     box-shadow: 0 0 20px #26e07f;
+    position: relative;
+    z-index: 2;
 }
 .profileImage{
     width: 200px;
@@ -118,11 +120,12 @@ html, body {
     border-right: 1px solid gray;
     padding-left: 50px;
     padding-top: 50px;
-    background-image: linear-gradient(0.25turn, lavender ,rgba(255,255,255,0) , lavender);
+    background-color: #17202A;
 
 }
 .profileContentCol{
-    width: 100%;
+    min-height: 100vh;
+    height: 100%;
     margin-top: 20px;
     padding-left: 50px;
     padding-top: 50px;
@@ -135,7 +138,7 @@ html, body {
 .profileTaps .nav-tabs .nav-link{
     height: 50px;
     font-weight: 600;
-    color: black;
+    color: white;
     background: transparent;
     border: none;
 }

@@ -92,6 +92,7 @@ $siteLink=$row->siteLink;
 </head>
 <body>
 <!-- MENU -->
+<body style="overflow:hidden;">
 <section class="nd-flex justify-content-end avbar custom-navbar navbar-fixed-top navbarStyle fixed-top " role="navigation">
     <div  class="navbar navbar-expand-lg main-nav px-0 ">
         <div class="container-fluid">
@@ -129,7 +130,7 @@ $siteLink=$row->siteLink;
 
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
-                    <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
+                    <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" style="margin-top: -150px;" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
                     <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyProfile-tab"  data-toggle="tab" href="#MyProfileTab" role="tab" aria-controls="MyProfile" aria-selected="true" onclick="window.location=window.location;">Restaurant Profile</a></li>
                     <li class=" nav-item"                           ><a class="nav-link" id="EditMyInformation-tab"   data-toggle="tab" href="#EditMyInformationTab" role="tab" aria-controls="EditMyInformation" aria-selected="false" onclick="window.location=window.location;">Menu</a></li>
                     <li class=" nav-item"                           ><a class="nav-link" id="ChangePassword-tab"   data-toggle="tab" href="#ChangePasswordTab" role="tab" aria-controls="ChangePassword" aria-selected="false" onclick="window.location=window.location;">Reviews</a></li>
@@ -137,7 +138,7 @@ $siteLink=$row->siteLink;
 
             </div>
         </div>
-        <div class="col-lg-9 p-0" style="background-color: #F9F9F9">
+        <div class="col-lg-9 p-0" style="background-color: #F9F9F9;">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyProfileTab" role="tabpanel" aria-labelledby="MyProfile-tab">
                     <div class="row profile-form">
