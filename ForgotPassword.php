@@ -9,6 +9,10 @@ session_start();
 $_SESSION['email'] ="";
 $_SESSION['code'] ="";
 if($_SERVER["REQUEST_METHOD"]=="POST") {
+    if (isset($_POST['errorOkButton'])) {
+        $disableSmallDiv="";
+        $errormsg="";
+    }
     if (isset($_POST['forgetButton']) && isset($_POST['forgetEmail'])) {
         $emailId = $_POST['forgetEmail'];
         $_SESSION['email'] = $emailId;
