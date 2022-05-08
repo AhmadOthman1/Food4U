@@ -42,7 +42,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
                 if ($mail->Send()) {
                     header('location:ChangePassword.php');
                 } else {
-                    echo "Mail Error - >" . $mail->ErrorInfo;
+
                 }
             }
         }
