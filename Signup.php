@@ -391,7 +391,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 </div>
                             </div>
                             <input type="submit" id="newC" name="newC" value="Register" class="buttonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
-                            <p style="max-width:600px;word-break: break-all; white-space: normal;color: gray">you have to wait for manager aprovement to log in using your resturant Email</p>
+
                         </div>
                     </form>
                 </div>
@@ -478,8 +478,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                             </div>
                             <input type="submit" id="newR" name="newR" value="Register" class="buttonBorderd" style="width: 50%;margin-left: auto;margin-right: auto">
+                            <h6 style="max-width:800px;height:50px;word-break: break-all; white-space: normal;color: gray">you have to wait for manager aprovement to log in using your resturant Email</h6>
+
+
                         </div>
                     </form>
+
 
                 </div>
 

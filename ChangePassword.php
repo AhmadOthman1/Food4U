@@ -1,5 +1,94 @@
 <?php
+session_start();
+$errormsg = "";
+$disableSmallDiv = "";
+if($_SERVER["REQUEST_METHOD"]=="POST") {
+    $passwordC=$_POST['passwordC'];
+    $codeC=$_POST['codeC'];
+    if (isset($_POST['changePass']) && !empty($passwordC)&& !empty($codeC)) {
+        $errormsg = "";
+        $disableSmallDiv = "";
+        if($codeC==$_SESSION['code'] ){
+            $errormsg = "";
+            $disableSmallDiv = "";
+            if(strlen($passwordC)>6){
+                $errormsg = "";
+                $disableSmallDiv = "";
+                $conn = new mysqli('localhost', 'root', '', 'food4u');
+                $qrstr="UPDATE `user` SET `password`='".sha1($passwordC)."' WHERE `Email`='".$_SESSION['email']."'";
+                $conn->query($qrstr);
+                $conn->close();
+                header('location:login.php');
+            }
+            else{
+                $errormsg = "Password is less than 6 digits";
+                $disableSmallDiv = "<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> ";
+            }
+        }else{
+            $errormsg = "Wrong Inputs";
+            $disableSmallDiv = "<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> ";
+        }
+    }{
+        $errormsg = "Wrong Code";
+        $disableSmallDiv = "<div class='errorMenuItem ' >
+    <div class='errorMenuItem2 container h-100' >
+        <div class='row align-items-center h-100' >
+            <div class='col-md-2' ></div>
+
+            <div class='col-md-8 mx-auto'>
+                <div class='errorMenuItemContent' style='align: center'>
+                    <form method='POST' action=" . $_SERVER["PHP_SELF"] . ">
+                        <table style='width: 100%; border-collapse: separate; border-spacing: 0 20px;'>
+                            <tr><td style='text-align: center; vertical-align: middle;'><textarea class='errorTextField ' style='resize: none' disabled type='text' name='ErrorPrice' cols='4'>$errormsg</textarea></td></tr>
+                            <tr><td style='text-align: center; vertical-align: middle;'><input type='submit' class='blackSquaredButton' name='errorOkButton' style='width:50%; height:50px' value='Ok'></td></tr>
+                        </table>
+                    </form>
+                </div>
+            </div>
+            <div class='col-md-2' ></div>
+        </div>
+    </div>
+</div> ";
+    }
+}
 ?>
+<?php echo $disableSmallDiv; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +108,7 @@
         <div class="left col-sm-6">
             <div class="top_link"><a href="ForgotPassword.php"><img src="icons/left.svg" alt=""></a></div>
             <div class="contact">
-                <form action="">
+                <form method='POST' action=" <?php echo$_SERVER["PHP_SELF"];?> ">
                     <div>
 
                     </div>
@@ -32,19 +121,19 @@
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" placeholder="Code">
+                                <input type="text" name="codeC"id="codeC" placeholder="Code">
                                 <div class="line"></div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" placeholder="NEW PASSWORD">
+                                <input type="text" name="passwordC"id="passwordC" placeholder="NEW PASSWORD">
                                 <div class="line"></div>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button class="buttonBorderd" >Change</button>
+                                <button type="submit" name="changePass" id="changePass" class="buttonBorderd" >Change</button>
                             </td>
                         </tr>
 
