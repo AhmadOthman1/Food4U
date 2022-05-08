@@ -5,10 +5,6 @@ $disableSmallDiv = "";
 if($_SERVER["REQUEST_METHOD"]=="POST") {
     $passwordC=$_POST['passwordC'];
     $codeC=$_POST['codeC'];
-    if (isset($_POST['errorOkButton'])) {
-        $disableSmallDiv="";
-        $errormsg="";
-    }
     if (isset($_POST['changePass']) && !empty($passwordC)&& !empty($codeC)) {
         $errormsg = "";
         $disableSmallDiv = "";
