@@ -127,7 +127,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
                         </tr>
                         <tr>
                             <td>
-                                <input type="text" name="passwordC"id="passwordC" placeholder="NEW PASSWORD">
+                                <input type="password" name="passwordC"id="passwordC" placeholder="NEW PASSWORD">
                                 <div class="line"></div>
                             </td>
                         </tr>
