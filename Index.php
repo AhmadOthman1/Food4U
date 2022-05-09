@@ -2,6 +2,10 @@
 session_start();
 session_unset();
 session_destroy();
+echo '<script>localStorage.removeItem("activeTab");</script>';
+session_start();
+session_unset();
+session_destroy();
 $errormsg="";
 $disableSmallDiv="";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
