@@ -296,9 +296,6 @@ table{
     height: 100%;
     background-color: rgba(0,0,0,0.5);
 }
-.editMenuItem2 .row{
-
-}
 .editMenuItemContent{
 
     height: 500px;
@@ -317,9 +314,7 @@ table{
     height: 100%;
     background-color: rgba(0,0,0,0.5);
 }
-.errorMenuItem2 .row{
 
-}
 .errorMenuItemContent{
 
     height: 400px;
