@@ -62,7 +62,10 @@ $coverImage=$row->coverImage;
 $facebookLink=$row->facebookLink;
 $InstagramLink=$row->InstagramLink;
 $siteLink=$row->siteLink;
-
+$qrstr="SELECT `Email`, `REmail`, AVG (stars) as stars FROM `reviews`,`restaurant` WHERE reviews.REmail=restaurant.Email  and restaurant.Email='".$_GET['CREmail']."' GROUP BY REmail";
+$res=$conn->query($qrstr);
+$row=$res->fetch_object();
+$stars=$row->stars;
 ?>
 
 <!DOCTYPE html>
@@ -126,106 +129,124 @@ $siteLink=$row->siteLink;
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 p-0 justify-content-center">
-
-            <div class="profileTaps">
-                <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
-                    <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" style="margin-top: -150px;" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyProfile-tab"  data-toggle="tab" href="#MyProfileTab" role="tab" aria-controls="MyProfile" aria-selected="true" onclick="window.location=window.location;">Restaurant Profile</a></li>
-                    <li class=" nav-item"                           ><a class="nav-link" id="EditMyInformation-tab"   data-toggle="tab" href="#EditMyInformationTab" role="tab" aria-controls="EditMyInformation" aria-selected="false" onclick="window.location=window.location;">Menu</a></li>
-                    <li class=" nav-item"                           ><a class="nav-link" id="ChangePassword-tab"   data-toggle="tab" href="#ChangePasswordTab" role="tab" aria-controls="ChangePassword" aria-selected="false" onclick="window.location=window.location;">Reviews</a></li>
-                </ul>
-
+        <div class="col-lg-12 p-0 justify-content-center">
+            <div class="profileInfoBar">
+                <div class=" container nav-item profileItem d-flex flex-row">
+                    <?php echo '<img class="profileImage " src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?>
+                    <div class="profileInfo "  >
+                        <h2><?php echo $name?></h2>
+                        <p><?php echo $_GET['CREmail']?></p>
+                    </div>
+                    <div class="starsDiv">
+                        <img src="icons/star.png" alt="stars:">
+                        <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;"> <?php echo $stars?></p>
+                    </div>
+                </div>
             </div>
+            <div class="profileTaps">
+            <ul class="nav nav-tabs nav-justified flex-row" id="myTab" role="tablist">
+                    <li class=" nav-item" ><a class="nav-link active" id="MyProfile-tab"  data-toggle="tab" href="#MyProfileTab" role="tab" aria-controls="MyProfile" aria-selected="true" onclick="window.location=window.location;">Restaurant Profile</a></li>
+                    <li class=" nav-item" ><a class="nav-link" id="EditMyInformation-tab"   data-toggle="tab" href="#EditMyInformationTab" role="tab" aria-controls="EditMyInformation" aria-selected="false" onclick="window.location=window.location;">Menu</a></li>
+                    <li class=" nav-item" ><a class="nav-link" id="ChangePassword-tab"   data-toggle="tab" href="#ChangePasswordTab" role="tab" aria-controls="ChangePassword" aria-selected="false" onclick="window.location=window.location;">Reviews</a></li>
+            </ul>
         </div>
-        <div class="col-lg-9 p-0" style="background-color: #F9F9F9;">
+    </div>
+    <div class="row profileContent">
+        <div class="col-md-1 p-0"></div>
+        <div class="col-md-10 p-0">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyProfileTab" role="tabpanel" aria-labelledby="MyProfile-tab">
                     <div class="row profile-form">
                         <div class="col-md-12">
-                            <table>
-                                <tr>
-                                    <td><label for="Name">Name:</label></td>
-                                    <td><input id="Name" type="text" placeholder="Name *" value="<?php echo $name?>" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="Email">Email:</label></td>
-                                    <td><input id="Email" type="text" placeholder="Email *" value="<?php echo $_GET['CREmail']?>" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="Description">Description:</label></td>
-                                    <td><textarea type="text" id="Description" placeholder="Description *" disabled cols="30" rows="5" aria-disabled="true"><?php echo $description?></textarea></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="FbLink">Facebook Link:</label></td>
-                                    <td><input id="FbLink" type="text" placeholder="Facebook Link *" value="<?php echo $facebookLink?>" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="FbLink">Instagram Link:</label></td>
-                                    <td><input id="FbLink" type="text" placeholder="Instagram Link *" value="<?php echo $InstagramLink?>" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><label for="FbLink">Site Link:</label></td>
-                                    <td><input id="FbLink" type="text" placeholder="Site Link *" value="<?php echo $siteLink?>" disabled/></td>
-                                </tr>
-                                <tr>
-                                    <td><label>Phone:</label></td>
-                                    <td>
+                            <div class="row" >
+                                <div class="col-md-6  profileContentBlock">
+                                    <div>
+                                        <h5>Description</h5>
+                                        <hr>
+                                        <p><?php echo $description?></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 profileContentBlock">
+                                    <div>
+                                        <h5>Contact Us</h5>
+                                        <hr>
                                         <table>
-                                            <?php
-                                            try{
-                                                $conn = new mysqli('localhost','root','','food4u');
-                                                $qrstr="SELECT `phone` FROM `restaurantphone` WHERE `Email`='".$_GET['CREmail']."'";
-                                                $res=$conn->query($qrstr);
-                                                for($i=0;$i<$res->num_rows;$i++) {
-                                                    $row = $res->fetch_object();
-                                                    $phone = $row->phone;
-                                                    echo '<tr><td><input type="text" value="'.$phone.'" placeholder="Phone *" disabled/></td></tr>';
-                                                }
-                                                $conn->close();
-                                            }
-                                            catch (Exception $ex){
-                                                echo "<p>".$ex->getTraceAsString()."</p>";
-                                            }
-                                            ?>
+                                            <tr>
+                                                <td style="width: 15%;"><h6>Phone:</h6></td>
+                                                <td>
+                                                    <table>
+                                                        <?php
+                                                        try{
+                                                            $conn = new mysqli('localhost','root','','food4u');
+                                                            $qrstr="SELECT `phone` FROM `restaurantphone` WHERE `Email`='".$_GET['CREmail']."'";
+                                                            $res=$conn->query($qrstr);
+                                                            for($i=0;$i<$res->num_rows;$i++) {
+                                                                $row = $res->fetch_object();
+                                                                $phone = $row->phone;
+                                                                echo '<tr><td><h7> '.$phone.'</h7></td></tr>';
+                                                            }
+                                                            $conn->close();
+                                                        }
+                                                        catch (Exception $ex){
+                                                            echo "<p>".$ex->getTraceAsString()."</p>";
+                                                        }
+                                                        ?>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="width: 15%;"><h6>Location:</h6></td>
+                                                <td>
+                                                    <table>
+                                                        <?php
+                                                        try{
+                                                            $conn = new mysqli('localhost','root','','food4u');
+                                                            $qrstr="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$_GET['CREmail']."'";
+                                                            $res=$conn->query($qrstr);
+                                                            for($i=0;$i<$res->num_rows;$i++) {
+                                                                $row = $res->fetch_object();
+                                                                $city = $row->city;
+                                                                $address = $row->address;
+                                                                echo '<tr>
+                                                                        <td style=" white-space: nowrap; width:20%;"><h7> '.$city.',</h7></td>
+                                                                        <td style=" white-space: nowrap;"><h7>'.$address.'</h7></td>
+                                                                        </tr>';
+                                                            }
+                                                            $conn->close();
+                                                        }
+                                                        catch (Exception $ex){
+                                                            echo "<p>".$ex->getTraceAsString()."</p>";
+                                                        }
+                                                        ?>
+                                                    </table>
+                                                </td>
+                                            </tr>
                                         </table>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><label>Location:</label></td>
-                                    <td>
-                                        <table>
-                                            <?php
-                                            try{
-                                                $conn = new mysqli('localhost','root','','food4u');
-                                                $qrstr="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$_GET['CREmail']."'";
-                                                $res=$conn->query($qrstr);
-                                                for($i=0;$i<$res->num_rows;$i++) {
-                                                    $row = $res->fetch_object();
-                                                    $city = $row->city;
-                                                    $address = $row->address;
-                                                    echo '<tr><td>
-                                                            <input type="text" value="'.$city.'" disabled/>
-                                                            </td>
-                                                            <td>
-                                                            <input type="text" value="'.$address.'" disabled/>
-                                                            </td>
-                                                            </tr>';
-                                                }
-                                                $conn->close();
-                                            }
-                                            catch (Exception $ex){
-                                                echo "<p>".$ex->getTraceAsString()."</p>";
-                                            }
-                                            ?>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 profileSocialBlock ">
+                                    <div>
+                                        <h5>Follow Us</h5>
+                                        <hr>
+                                        <div class="iconsContainer">
+                                            <div>
+                                                <a href="<?php echo $facebookLink?>" class="ResIcon"id="facebookIconRes"></a>
+                                                <a href="<?php echo $InstagramLink?>" class="ResIcon"id="instagramIconRes"></a>
+                                                <a href="<?php echo $siteLink?>" class="ResIcon"id="siteIconRes"></a>  
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade show" id="EditMyInformationTab" role="tabpanel" aria-labelledby="EditMyInformation-tab">
+                    <div class="menuBg"></div>
+                    <div class="menuDiv"></div>    
                     <div class="row editProfile-form">
                         <div class="col-md-12">
                             <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
@@ -373,6 +394,7 @@ $siteLink=$row->siteLink;
                 </div>
             </div>
         </div>
+        
     </div>
 </div>
 

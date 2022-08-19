@@ -138,24 +138,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 p-0 justify-content-center">
-
-            <div class="profileTaps">
-                <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
-                    <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyOrders-tab"  data-toggle="tab" href="#MyOrdersTab"  role="tab" aria-controls="MyOrders" aria-selected="true" onclick="window.location=window.location;">My Orders</a></li>
+        <div class="col-md-12 p-0 justify-content-center">
+            <div class="menuInfoBar">
+                <div class=" container nav-item profileItem d-flex flex-row">
+                    <?php echo '<img class="profileImage " src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?>
+                    <div class="profileInfo "  >
+                        <h2><?php echo $name?></h2>
+                        <p><?php echo $_SESSION['Email']?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="menuTaps">
+                <ul class="nav nav-tabs nav-justified flex-row" id="myTab" role="tablist">
+                    <li class=" nav-item"><a class="nav-link active" id="MyOrders-tab"  data-toggle="tab" href="#MyOrdersTab"  role="tab" aria-controls="MyOrders" aria-selected="true" onclick="window.location=window.location;">My Orders</a></li>
                     <li class=" nav-item" ><a class="nav-link" id="MyAOrders-tab"  data-toggle="tab" href="#MyAOrdersTab" role="tab" aria-controls="MyAOrders" aria-selected="false" onclick="window.location=window.location;">Accepted orders</a></li>
                     <li class=" nav-item" ><a class="nav-link" id="MyDOrders-tab"  data-toggle="tab" href="#MyDOrdersTab" role="tab" aria-controls="MyDOrders" aria-selected="false" onclick="window.location=window.location;">Declined Orders</a></li>
                 </ul>
 
             </div>
         </div>
-        <div class="col-lg-9 p-0"style="background-color: #F9F9F9">
+    </div>
+    <div class="row" style="background-color: #F9F9F9">
+        <div class="col-md-1 p-0"></div>
+        <div class="col-md-10 p-0">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyOrdersTab" role="tabpanel" aria-labelledby="MyOrders-tab">
                     <div class="row profile-form">
                         <div class="col-md-12">
-
+                            <div class="order">
                                 <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
                                 try{
                                     $conn = new mysqli('localhost','root','','food4u');
@@ -169,13 +179,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         $CCity = $row->city;
                                         $CAddress = $row->address;
                                         $CPhone = $row->phone;
-                                        echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
+                                        echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px; ">
                                             <tr class="CDiv">
                                             <td style="border-bottom: #26e07f solid 2px">
                                             <div >
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
-                                                    <h3 class="CName">'.$CName.'</h3>
+                                                    <h3 class="CName">'.$CName.'- Order</h3>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CCity.' - '.$CAddress.'</p>
                                                     <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$CPhone.'</p>
                                                 </div>
@@ -231,7 +241,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 }
                                 ?>
 
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -394,6 +405,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </div>
         </div>
+        <div class="col-md-1 p-0"></div>
     </div>
 </div>
 

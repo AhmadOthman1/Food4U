@@ -562,22 +562,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 p-0 justify-content-center">
-
-            <div class="profileTaps">
-                <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
-                    <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyMenu-tab"  data-toggle="tab" href="#MyMenuTab"  role="tab" aria-controls="MyMenu" aria-selected="true" onclick="window.location=window.location;">My Menu</a></li>
+        <div class="col-lg-12 p-0 justify-content-center">
+            <div class="menuInfoBar">
+                <div class=" container nav-item profileItem d-flex flex-row">
+                    <?php echo '<img class="profileImage " src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?>
+                    <div class="profileInfo "  >
+                        <h2><?php echo $name?></h2>
+                        <p><?php echo $_SESSION['Email']?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="menuTaps">
+                <ul class="nav nav-tabs nav-justified flex-row" id="myTab" role="tablist">
+                    <li class=" nav-item" ><a class="nav-link active" id="MyMenu-tab"  data-toggle="tab" href="#MyMenuTab"  role="tab" aria-controls="MyMenu" aria-selected="true" onclick="window.location=window.location;">My Menu</a></li>
                     <li class=" nav-item" ><a class="nav-link" id="EditMyMenu-tab"  data-toggle="tab" href="#EditMyMenuTab" role="tab" aria-controls="EditMyMenu" aria-selected="false" onclick="window.location=window.location;">Add To Menu</a></li>
                 </ul>
 
             </div>
         </div>
-        <div class="col-lg-9 p-0"style="background-color: #F9F9F9">
+    </div>
+    <div class="row">
+        <div class="col-md-12 p-0"style="background-color: #F9F9F9">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyMenuTab" role="tabpanel" aria-labelledby="MyMenu-tab">
+                    <div class="menuBg"></div>
+                    <div class="menuDiv"></div>
                     <div class="row profile-form">
                         <div class="col-md-12">
+                            <h1 style="text-align: center;color:white; font-weight: 500;">Menu</h1>
                             <table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                 <?php
                                 try{
@@ -587,7 +599,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     for($i=0;$i<$res->num_rows;$i++) {
                                         $row = $res->fetch_object();
                                         $sName = $row->sName;
-                                        echo '<tr><td><h1 class="sectionName" style="text-align: center">'.$sName.'</h1>
+                                        echo '<tr><td><h1 class="sectionName">'.$sName.'</h1>
                                         <form method="POST" action="'.$_SERVER["PHP_SELF"].'">
                                             <input type="text" name="secId" value="'.$sName.'" style="display: none;">
                                             <input type="submit" name="chanegSecName" class="greenUnborderedButton" value="Change">
@@ -608,7 +620,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                             <tr class="mealDiv">
                                             <td>
                                             <div >
-                                                <img class="mealImage" src="data:image/jpeg;base64,'.base64_encode($mimage).'"/>
+                                            <img class="mealImage" src="data:image/jpeg;base64,'.base64_encode($mimage).'"/>
                                                 <div class="mealInfo">
                                                     <h3 class="mealName">'.$mName.'</h3>
                                                     <p class="mealDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$mdescription.'</p>
@@ -703,6 +715,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             </div>
         </div>
+        <div class="col-md-1 p-0"></div>
     </div>
 </div>
 
