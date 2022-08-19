@@ -106,31 +106,23 @@ html, body {
     border:  #26e07f solid 2px;
     box-shadow: 0 0 20px black;
     border-radius: 30px;
-    margin-top:20px;
-
     position: relative;
     z-index: 3;
 }
 .profileTaps{
-    height: 100%;
+    height: 50px;
+    width: 100%;
     border-right: 1px solid gray;
-    padding-left: 50px;
-    padding-top: 50px;
-    background-color: #17202A;
-
-}
-.profileContentCol{
-    min-height: 100vh;
-    height: 100%;
-    margin-top: 20px;
-    padding-left: 50px;
-    padding-top: 50px;
-    overflow: hidden;
+    background-color:  #212f3c ;
+    
 }
 .profileTaps .nav-tabs{
-    margin-top: 3%;
     border: none;
     background: transparent;
+}
+.profileTaps .nav-tabs .nav-item{
+    float: left;
+
 }
 .profileTaps .nav-tabs .nav-link{
     height: 50px;
@@ -145,12 +137,19 @@ html, body {
 .profileTaps .nav-tabs .nav-link.active{
     color: #26E07F;
     background: transparent;
+    border-bottom: #17202A  solid 2px;
 }
 .profile-form{
+    width : 100%;
     padding: 5%;
-    width: 100%;
-    margin-top: 5%;
+    z-index: 11;
+    position: relative;
     height: max-content;
+}
+.profile-form div table tr td label{
+    font-size: 20px;
+    font-weight: 600;
+    color:black;
 }
 .profile-form div table tr td input[type=text],[type=password],.profile-form div table tr td textarea,.selectInput{
     border: none;
@@ -210,6 +209,8 @@ table{
     width: 100%;
     margin-top: 5%;
     height: max-content;
+    position: relative;
+    z-index: 11;
 }
 .editProfile-form div table tr td input[type=text],[type=password],.editProfile-form div table tr td textarea,.selectInput,.activTextField{
     border: none;
@@ -229,21 +230,26 @@ table{
 .sectionName{
     font-family: RalewayBold;
     padding-bottom: 20px;
-    border-bottom: gray solid 1px;
+    border-bottom: white solid 3px;
     float: left;
+    text-align: center;
+    color: white;
 }
 .mealDiv{
     width: 100%;
     height:fit-content;
-    box-shadow: 0 0 10px black;
     margin:10px;
     padding: 5px;
     border-radius: 20px;
-
+    
+}
+.mealDiv > td:first-child{
+    border-bottom: white solid 1px;
+    width: 60%;
 }
 .mealImage{
-    width: 150px;
-    height: 150px;
+    width: 50px;
+    height: 50px;
     box-shadow: 0 0 10px black;
     border: #26e07f solid 2px;
     border-radius: 10px;
@@ -251,23 +257,26 @@ table{
     float: left;
 }
 .mealInfo{
-    width: auto;
+    width: 50%;
     height: auto;
     margin: 10px;
     float: left;
 }
 .mealName{
     font-family: RalewayBold;
+    color: black;
+    font-size: 20px;
+
 }
 .mealDes{
     font-family: RalewayLight;
     width: auto;
     height: auto;
     margin: 10px;
-    color: gray;
+    color: darkgray;
 }
 .imagePrice{
-    height: 170px;
+    color: white;
 }
 .mealPrice{
     height: 80px;
@@ -287,9 +296,6 @@ table{
     height: 100%;
     background-color: rgba(0,0,0,0.5);
 }
-.editMenuItem2 .row{
-
-}
 .editMenuItemContent{
 
     height: 500px;
@@ -308,9 +314,7 @@ table{
     height: 100%;
     background-color: rgba(0,0,0,0.5);
 }
-.errorMenuItem2 .row{
 
-}
 .errorMenuItemContent{
 
     height: 400px;
@@ -370,7 +374,6 @@ table{
     height:fit-content;
     margin:10px;
     padding: 5px;
-    background-color: lavender;
 
 }
 .CImage{
@@ -411,7 +414,7 @@ table{
     box-shadow: 0 0 5px black;
     border: #26e07f solid 1px;
     border-radius: 10px;
-    margin: 10px;
+    margin: 5px;
     float: left;
 }
 .MInfo{
@@ -429,6 +432,31 @@ table{
     height: auto;
     margin: 10px;
     color: gray;
+}
+.ResIcon{
+    display: block;
+    float: left;
+    height: 50px;
+    width: 50px;
+    margin-bottom: 10px;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: 30px 30px;
+    border: none;
+    background-position: center;
+    border-radius: 100%;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+.ResIcon:hover{transform: scale(1.1);}
+#facebookIconRes{
+    background-image: url("../icons/facebook.png"); 
+}
+#instagramIconRes{
+    background-image: url("../icons/instagram.png");
+}
+#siteIconRes{
+    background-image: url("../icons/site.png");
 }
 .coverImage{
     width: 100%;
@@ -450,5 +478,119 @@ table{
     outline: none;
     background-image: url("../icons/revG.png");
 }
+.profile-form .order{
+    background-color:white;
+     padding: 10px;
+     border-radius: 10px;
+     margin-bottom: 10px;
+}
+.profileContent{
+    background-color:  #e5e7e9 ;
+}
+.profileContentBlock{
+    padding: 10px;
+    min-height: 300px;
+}
+.profileContentBlock div{
+    padding: 10px;
+    background-color: white;
+    height: 100%;
+}
+.profileContentBlock div p{
+    width:inherit;
+    word-wrap: break-word;
+}
+.profileContentBlock div hr{
+    color:#26e07f;
+    margin-bottom : 20px;
+}
+.profileContentCol{
+    min-height: 100vh;
+    height: 100%;
+}
+.profileSocialBlock > div{
+    padding: 2px;
+    background-color: white;
+    height: 100%;
+}
+.profileSocialBlock  div .iconsContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+}
+.profileSocialBlock div hr{
+    color:#26e07f;
+    margin-bottom : 20px;
+}
 
+.profileSocialBlock div h5{
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
+}
+.profileItem{
+    position: absolute;
+    top: -150px;
+    left: 20%;
+    z-index: 10;
+}
+.profileItem .starsDiv{
+    width:150px;
+    margin-top:170px;
+    margin-left: -130px;
+    display: flex;
+    justify-content: center;
+}
+.profileItem .starsDiv img{
+    width: 40px;
+    height: 40px;
+    float:left;
+    margin-top: 10px;
+}
+.profileItem .starsDiv p{
+    max-width:200px;
+    word-break: break-all;
+    white-space: normal;
+    font-size: 25px;
+    font-weight: 900;
+    color: #26e07f;
+}
+.profileInfoBar{
+    height: 100px;
+    width: 100%;
+    border-right: 1px solid gray;
+    padding-left: 50px;
+    padding-top: 50px;
+    background-color: #17202A;
+}
+.profileInfo{
+    margin-left: 20px;
+    margin-top: 40px;
+}
+.profileInfo h2{
+    font-weight: 900;
+    color: black;
+}
+.profileInfo p{
+    width: 100%;
+    color:gray;
+}
+.menuBg{
+    background-image: url("../images/menubg4.jpg");
+    background-position: center;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+.menuDiv{
+    background: rgb(176,133,0.1);
+    background: linear-gradient(180deg, rgba(176,133,1,1) 0%, rgba(23,32,42,1) 2%, rgba(23,32,42,1) 98%, rgba(176,133,1,1) 100%);
+    opacity: 0.6;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 10;
+}

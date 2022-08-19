@@ -139,12 +139,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyOrdersTab" role="tabpanel" aria-labelledby="MyOrders-tab">
                     <div class="row profile-form">
-                        <div class="col-md-12" style="border: gray solid 2px; height: 100vh">
+                        <div class="col-md-12" style="border: gray solid 2px;">
 
                                 <?php //SELECT `CEmail`, `REmail`, `mealid`, `state`,`user`.`name` as `userName`,`profileImage`,`city`,`address`,`phone`,`image`, `meals`.`name` as `mealName` FROM `orders`,`user`,`meals`,`customer` WHERE `CEmail`='Ahmad@gmail.com' and `REmail`='a@gmail.com' and `user`.`Email`=`CEmail` and `mealid`=`meals`.`id` and `user`.`Email`=`customer`.`Email`;
                                 try{
                                     $conn = new mysqli('localhost','root','','food4u');
-                                    $qrstr="SELECT `user`.`name` as `userName`,`user`.`Email` as `userEmail`, `profileImage`, `description` FROM `user`,`restaurant` WHERE `user`.`Email`=`restaurant`.`Email` and (`user`.`name` LIKE '%".$_GET['searchTextFeild']."%' or `restaurant`.`description` LIKE '%".$_GET['searchTextFeild']."%' )";
+                                    $qrstr="SELECT `user`.`name` as `userName`,`coverImage`,`user`.`Email` as `userEmail`, `profileImage`, `description` FROM `user`,`restaurant` WHERE `user`.`Email`=`restaurant`.`Email` and (`user`.`name` LIKE '%".$_GET['searchTextFeild']."%' or `restaurant`.`description` LIKE '%".$_GET['searchTextFeild']."%' )";
                                     $res=$conn->query($qrstr);
                                     for($i=0;$i<$res->num_rows;$i++) {
                                         $row = $res->fetch_object();
@@ -152,17 +152,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         $CEmail = $row->userEmail;
                                         $RDescription = $row->description;
                                         $CPImage = $row->profileImage;
+                                        $CPCImage = $row->coverImage;
                                         echo '<table style="width: 100%; border-collapse: separate; border-spacing: 0 20px;">
                                             <tr class="CDiv">
                                             <td style="border-bottom: #26e07f solid 2px">
                                             <div >
+                                            <img class="CCImage" src="data:image/jpeg;base64,'.base64_encode($CPCImage).'"/>
                                                 <img class="CImage" src="data:image/jpeg;base64,'.base64_encode($CPImage).'"/>
                                                 <div class="CInfo">
                                                     <form method="GET" action="CRPage.php"><input class="greenUnborderedButton" style="color: black;font-size: 30px;" type="submit" value="'.$CName.'"><input name="CREmail" type="text"style="display: none" value="'.$CEmail.'"></form>
-                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$RDescription.'</p>';
+                                                    <div class="row">
+                                                    <div class="col-md-6 p-1" style="padding:5px;"><div>
+                                                    <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$RDescription.'</p></div></div>';
                                                         $conn2 = new mysqli('localhost','root','','food4u');
                                                         $qrstr2="SELECT `city`, `address` FROM `restaurantlocation` WHERE `Email`='".$CEmail."'";
                                                         $res2=$conn2->query($qrstr2);
+                                                        echo '<div class="col-md-6 p-1" style="padding:5px;"> <div >';
                                                         for($j=0;$j<$res2->num_rows;$j++) {
                                                             $row2 = $res2->fetch_object();
                                                             $RCity=$row2->city;
@@ -170,7 +175,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                                             echo '<p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;">'.$RCity.' - '.$RAddress.'</p>';
                                                         }
                                                         $conn2->close();
-                                                echo '</div>
+                                                echo '</div></div></div>
+                                                </div>
                                             </div>
                                             </td>
                                             </tr>

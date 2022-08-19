@@ -337,7 +337,7 @@ if(isset($_POST['change'])) {
 <div class="mainPage">
     <div class="row">
         <div class="col-lg-3 p-0 justify-content-center" >
-
+            <!-- side profile nav -->
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
                     <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
@@ -350,6 +350,7 @@ if(isset($_POST['change'])) {
         </div>
         <div class="col-lg-9 p-0" style="background-color: #F9F9F9">
             <div class="tab-content profileContentCol" id="myTabContent">
+                <!-- show user info pane -->
                 <div class="tab-pane fade show active" id="MyProfileTab" role="tabpanel" aria-labelledby="MyProfile-tab">
                     <div class="row profile-form">
                         <div class="col-md-12">
@@ -357,24 +358,18 @@ if(isset($_POST['change'])) {
                                 <tr>
                                     <td><label for="Name">Name:</label></td>
                                     <td><input id="Name" type="text" placeholder="Name *" value="<?php echo $name?>" disabled/></td>
-                                </tr>
-                                <tr>
                                     <td><label for="Email">Email:</label></td>
                                     <td><input id="Email" type="text" placeholder="Email *" value="<?php echo $_SESSION['Email']?>" disabled/></td>
                                 </tr>
                                 <tr>
                                     <td><label for="Gender">Gender:</label></td>
                                     <td><input id="Gender" type="text" placeholder="Gender *" value="<?php echo $gender?>" disabled/></td>
-                                </tr>
-                                <tr>
                                     <td><label for="Phone">Phone:</label></td>
                                     <td><input id="Phone" type="text" placeholder="Phone *" value="<?php echo $phone?>" disabled/></td>
                                 </tr>
                                 <tr>
                                     <td><label for="City">City:</label></td>
                                     <td><input id="City" type="text" placeholder="City *" value="<?php echo $city?>" disabled/></td>
-                                </tr>
-                                <tr>
                                     <td><label for="Address">Address:</label></td>
                                     <td><input id="Address" type="text" placeholder="Address *" value="<?php echo $address?>" disabled/></td>
                                 </tr>

@@ -37,6 +37,10 @@ try{
     $facebookLink=$row->facebookLink;
     $InstagramLink=$row->InstagramLink;
     $siteLink=$row->siteLink;
+    $qrstr="SELECT `Email`, `REmail`, AVG (stars) as stars FROM `reviews`,`restaurant` WHERE reviews.REmail=restaurant.Email  and restaurant.Email='".$_SESSION['Email']."' GROUP BY REmail";
+    $res=$conn->query($qrstr);
+    $row=$res->fetch_object();
+    $stars=$row->stars;
     $conn->close();
 }
 catch (Exception $ex){
@@ -107,22 +111,34 @@ catch (Exception $ex){
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 p-0 justify-content-center">
-
+        <div class="col-md-12 p-0 justify-content-center">
+            <div class="profileInfoBar">
+                <div class=" container nav-item profileItem d-flex flex-row">
+                    <?php echo '<img class="profileImage " src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?>
+                    <div class="profileInfo "  >
+                        <h2><?php echo $name?></h2>
+                        <p><?php echo $_SESSION['Email']?></p>
+                    </div>
+                    <div class="starsDiv">
+                        <img src="icons/star.png" alt="stars:">
+                        <p class="CDes" style="max-width:600px;word-break: break-all; white-space: normal;"> <?php echo $stars?></p>
+                    </div>
+                </div>
+            </div>
             <div class="profileTaps">
                 <ul class="nav nav-tabs nav-justified flex-column" id="myTab" role="tablist">
-                    <li class=" nav-item"><?php echo '<img class="profileImage align-self-center" src="data:image/jpeg;base64,'.base64_encode($profileImage).'"/>' ?></li>
-                    <li class=" nav-item" style="margin-top: 20px;"><a class="nav-link active" id="MyReviews-tab"  data-toggle="tab" href="#MyReviewsTab" role="tab" aria-controls="MyMenu" aria-selected="true" onclick="window.location=window.location;">My Reviews</a></li>
+                    <li class=" nav-item" ><a class="nav-link active" id="MyReviews-tab"  data-toggle="tab" href="#MyReviewsTab" role="tab" aria-controls="MyMenu" aria-selected="true" onclick="window.location=window.location;">My Reviews</a></li>
                     
                 </ul>
 
             </div>
         </div>
-        <div class="col-lg-9 p-0"style="background-color: #F9F9F9">
+        <div class="col-lg-12 p-0"style="background-color: #F9F9F9">
             <div class="tab-content profileContentCol" id="myTabContent">
                 <div class="tab-pane fade show active" id="MyReviewsTab" role="tabpanel" aria-labelledby="MyReviews-tab">
                     <div class="row profile-form">
-                        <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
                             <table>
                                 <table style="width: 100%; border-collapse: separate; border-spacing: 0 10px;">
                                     <?php
@@ -138,7 +154,7 @@ catch (Exception $ex){
                                                 $CImage = $row2->profileImage;
                                                 echo '
                                             <tr class="reviewDiv">
-                                            <td style="border-bottom: 1pt solid gray;">
+                                            <td style="border-bottom: 1pt solid gray; width:95%;">
                                             <div >
                                                 <img class="reviewImage" src="data:image/jpeg;base64,'.base64_encode($CImage).'"/>
                                                 <div class="reviewInfo">
@@ -170,6 +186,7 @@ catch (Exception $ex){
                                 </table>
                             </table>
                         </div>
+                        <div class="col-md-1"></div>
                     </div>
                 </div>
                 

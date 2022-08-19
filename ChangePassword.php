@@ -2,9 +2,20 @@
 session_start();
 $errormsg = "";
 $disableSmallDiv = "";
+$passwordC="";
+$codeC="";
 if($_SERVER["REQUEST_METHOD"]=="POST") {
+    $passwordC="";
+    $codeC="";
+    if (isset($_POST['errorOkButton'])) {
+        $disableSmallDiv="";
+        $errormsg="";
+    }
+}
+if($_SERVER["REQUEST_METHOD"]=="POST"&&isset($_POST['changePass'])) {
     $passwordC=$_POST['passwordC'];
     $codeC=$_POST['codeC'];
+
     if (isset($_POST['changePass']) && !empty($passwordC)&& !empty($codeC)) {
         $errormsg = "";
         $disableSmallDiv = "";
@@ -64,7 +75,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST") {
     </div>
 </div> ";
         }
-    }{
+    }else{
         $errormsg = "Wrong Code";
         $disableSmallDiv = "<div class='errorMenuItem ' >
     <div class='errorMenuItem2 container h-100' >
